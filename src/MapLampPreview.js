@@ -89,8 +89,8 @@ const frameBorderRadius = `${radius + border}vh`;
 const frameDiameter = `${radius * 2}vh`;
 
 const mapOffset = `${border - 5}vh`;
-const mapDiameter = `${radius * 2 + 10}vh`;
-const mapBorderRadius = `${radius + border}vh`;
+const mapDiameter = `${(radius * 2 + 10) * 2}vh`;
+const mapBorderRadius = `${(radius + border) * 2}vh`;
 
 const styles = StyleSheet.create({
   lamp: {
@@ -130,6 +130,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     backgroundImage:
       "radial-gradient(RGB(239, 224, 223), RGB(255, 239, 205), rgb(225, 185, 141))",
-    webkitTransform: "translateZ(0)"
+    webkitTransform: "translateZ(0)",
+    transform: "scale(.5,.5)",
+    transformOrigin: "top left"
   }
 });
