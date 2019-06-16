@@ -5,7 +5,11 @@ import colors from "./colors";
 
 export default function(props) {
   return (
-    <button className={css(styles.button)} onClick={props.onClick}>
+    <button
+      className={css(styles.button)}
+      onClick={props.onClick}
+      style={props.style}
+    >
       {props.children}
     </button>
   );
@@ -14,16 +18,14 @@ export default function(props) {
 const styles = StyleSheet.create({
   button: {
     padding: "10px 20px",
-    minWidth: "60px",
-    minHeight: "60px",
     borderColor: colors.defaultGray,
-    borderWidth: "2px",
+    borderWidth: "1px",
     borderStyle: "solid",
     position: "relative",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: "10px",
+    borderRadius: "4px",
     margin: "5px",
     userSelect: "none",
     fontSize: "medium",

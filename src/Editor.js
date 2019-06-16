@@ -160,7 +160,6 @@ class Editor extends React.Component {
             </FormItem>
           </div>
           <div className={css(styles.formButtons)}>
-            <Button>Share</Button>
             <Button>Next</Button>
           </div>
         </div>
