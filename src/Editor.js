@@ -5,6 +5,7 @@ import MapZoomControl from "./MapZoomControl";
 import MapLampPreview from "./MapLampPreview";
 import FormItem from "./FormItem";
 import FormSelect from "./FormSelect";
+import colors from "./colors";
 
 import Button from "./Button";
 
@@ -154,6 +155,9 @@ class Editor extends React.Component {
           <div className={css(styles.formItems)}>
             <FormItem name="Location">
               <div ref={this.geocoderContainerRef} />
+              <div className={css(styles.hint)}>
+                Click and drag the map to pick a precise location
+              </div>
             </FormItem>
             <FormItem name="Road density">
               <FormSelect
@@ -241,5 +245,10 @@ const styles = StyleSheet.create({
   },
   header: {
     fontWeight: "bold"
+  },
+  hint: {
+    marginTop: "5px",
+    fontSize: "small",
+    color: colors.textGray
   }
 });
