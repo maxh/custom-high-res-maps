@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import ReactMapGL from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
+import ReactSVG from "react-svg";
 
 import "./mapbox-geocoder.css";
 
@@ -36,6 +37,14 @@ class MapLampPreview extends React.Component {
     });
   };
 
+  getFrameStyle = () => {
+    if (this.props.frameFinish.value == "natural") {
+      return { backgroundImage: "url(/wood.jpg)" };
+    } else {
+      return { backgroundColor: "black" };
+    }
+  };
+
   render() {
     return (
       <div className={css(styles.lamp)}>
@@ -63,7 +72,7 @@ class MapLampPreview extends React.Component {
             ) : null}
           </ReactMapGL>
         </div>
-        <div className={css(styles.frame)} />
+        <div className={css(styles.frame)} style={this.getFrameStyle()} />
         <div className={css(styles.glow)} />
         <div className={css(styles.cord)} />
       </div>
@@ -83,11 +92,13 @@ const height = 90;
 const border = height * borderFraction;
 const radius = height * radiusFraction;
 
-const frameOuterHeight = `${height}vh`;
+const lampHeight = `${height}vh`;
 
-const frameBorderWidth = `${border}vh`;
-const frameBorderRadius = `${radius + border}vh`;
-const frameDiameter = `${radius * 2}vh`;
+const frameDiameter = `${radius * 2 + border * 2}vh`;
+
+const glowBorderWidth = `${border}vh`;
+const glowBorderRadius = `${radius + border}vh`;
+const glowDiameter = `${radius * 2}vh`;
 
 const mapOffset = `${border - 5}vh`;
 const mapDiameter = `${(radius * 2 + 10) * 2}vh`;
@@ -98,8 +109,8 @@ const cordLeft = `${height / 2}vh`;
 
 const styles = StyleSheet.create({
   lamp: {
-    height: frameOuterHeight,
-    width: frameOuterHeight,
+    height: lampHeight,
+    width: lampHeight,
     position: "relative",
     display: "flex",
     flexDirection: "row"
@@ -108,20 +119,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     height: frameDiameter,
     width: frameDiameter,
-    borderColor: "rgb(15,15,15)",
-    borderWidth: frameBorderWidth,
-    borderStyle: "solid",
-    borderRadius: frameBorderRadius,
-    pointerEvents: "none"
+    pointerEvents: "none",
+    clipPath: "url(#doughnut-path)"
   },
   glow: {
     position: "absolute",
-    top: frameBorderWidth,
-    left: frameBorderWidth,
-    boxShadow: "0px 0px 40px rgb(143, 139, 138, 50%)",
-    height: frameDiameter,
-    width: frameDiameter,
-    borderRadius: frameBorderRadius,
+    top: glowBorderWidth,
+    left: glowBorderWidth,
+    boxShadow: "0px 0px 40px rgb(255, 255, 255, 50%)",
+    height: glowDiameter,
+    width: glowDiameter,
+    borderRadius: glowBorderRadius,
     pointerEvents: "none"
   },
   cord: {
