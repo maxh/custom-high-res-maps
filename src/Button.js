@@ -6,7 +6,7 @@ import colors from "./colors";
 export default function(props) {
   return (
     <button
-      className={css(styles.button)}
+      className={[css(styles.button), props.className].join("  ")}
       onClick={props.onClick}
       style={props.style}
     >
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
   button: {
     padding: "10px 20px",
     borderColor: colors.defaultGray,
-    borderWidth: "1px",
     borderStyle: "solid",
     position: "relative",
     display: "flex",
@@ -29,7 +28,6 @@ const styles = StyleSheet.create({
     margin: "5px",
     userSelect: "none",
     fontSize: "medium",
-    backgroundColor: "white",
     ":hover": {
       backgroundColor: colors.hoveredGray,
       cursor: "pointer"
