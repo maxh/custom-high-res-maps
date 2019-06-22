@@ -36,6 +36,23 @@ function debounce(func, wait, immediate) {
   };
 }
 
+const parseUrl = queryString => {
+  const params = new URLSearchParams(queryString);
+  const getParam = key =>
+    params.get(key) == "undefined" ? null : params.get(key);
+  const findOption = (options, key) =>
+    options.find(option => option.value == key);
+  return {
+    lat: parseFloat(getParam("lat")),
+    lon: parseFloat(getParam("lon")),
+    zoom: parseFloat(getParam("zoom")),
+    density: findOption(DENSITY_OPTIONS, getParam("density")),
+    theme: findOption(THEME_OPTIONS, getParam("theme")),
+    frameFinish: findOption(FRAME_FINISH_OPTIONS, getParam("frameFinish")),
+    cordColor: findOption(CORD_COLOR_OPTIONS, getParam("cordColor"))
+  };
+};
+
 const DENSITY_OPTIONS = [
   { value: "high", label: "High" },
   { value: "medium", label: "Medium" },
@@ -58,16 +75,24 @@ const CORD_COLOR_OPTIONS = [
   { value: "black", label: "Black" }
 ];
 
+const SF_LAT = 37.741955392356495;
+const SF_LON = -122.44054521089129;
+const SF_ZOOM = 12;
+
 class Editor extends React.Component {
-  state = {
-    latitude: 37.729,
-    longitude: -122.36,
-    zoom: 11,
-    selectedDensity: DENSITY_OPTIONS[0],
-    selectedTheme: THEME_OPTIONS[0],
-    selectedFrameFinish: FRAME_FINISH_OPTIONS[0],
-    selectedCordColor: CORD_COLOR_OPTIONS[0]
-  };
+  constructor(props) {
+    super(props);
+    const params = parseUrl(props.location.search);
+    this.state = {
+      latitude: params.lat || SF_LAT,
+      longitude: params.lon || SF_LON,
+      zoom: params.zoom || SF_ZOOM,
+      selectedDensity: params.density || DENSITY_OPTIONS[0],
+      selectedTheme: params.theme || THEME_OPTIONS[0],
+      selectedFrameFinish: params.frameFinish || FRAME_FINISH_OPTIONS[0],
+      selectedCordColor: params.cordColor || CORD_COLOR_OPTIONS[0]
+    };
+  }
 
   geocoderContainerRef = React.createRef();
 
