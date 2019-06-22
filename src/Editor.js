@@ -196,6 +196,7 @@ class Editor extends React.Component {
           <MapLampPreview
             geocoderContainerRef={this.geocoderContainerRef}
             frameFinish={this.state.selectedFrameFinish}
+            cordColor={this.state.selectedCordColor}
             latitude={this.state.latitude}
             longitude={this.state.longitude}
             zoom={this.state.zoom}

@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import ReactMapGL from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
-import ReactSVG from "react-svg";
 
 import "./mapbox-geocoder.css";
 
@@ -37,7 +36,11 @@ class MapLampPreview extends React.Component {
     });
   };
 
-  getFrameStyle = () => {
+  getCordColorStyle = () => {
+    return { backgroundColor: this.props.cordColor.value };
+  };
+
+  getFrameFinishStyle = () => {
     if (this.props.frameFinish.value == "natural") {
       return { backgroundImage: "url(/wood.jpg)" };
     } else {
@@ -72,9 +75,11 @@ class MapLampPreview extends React.Component {
             ) : null}
           </ReactMapGL>
         </div>
-        <div className={css(styles.frame)} style={this.getFrameStyle()} />
+        <div className={css(styles.frameBackground)} />
+        <div className={css(styles.frame)} style={this.getFrameFinishStyle()} />
         <div className={css(styles.glow)} />
-        <div className={css(styles.cord)} />
+        <div className={css(styles.shadow)} />
+        <div className={css(styles.cord)} style={this.getCordColorStyle()} />
       </div>
     );
   }
@@ -115,18 +120,36 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row"
   },
+  frameBackground: {
+    position: "absolute",
+    height: frameDiameter,
+    width: frameDiameter,
+    pointerEvents: "none",
+    clipPath: "url(#donut-path)",
+    backgroundColor: "black"
+  },
   frame: {
     position: "absolute",
     height: frameDiameter,
     width: frameDiameter,
     pointerEvents: "none",
-    clipPath: "url(#doughnut-path)"
+    clipPath: "url(#donut-path)"
   },
   glow: {
     position: "absolute",
     top: glowBorderWidth,
     left: glowBorderWidth,
-    boxShadow: "0px 0px 40px rgb(255, 255, 255, 50%)",
+    boxShadow: "0px 0px 40px rgb(255, 255, 255, 30%)",
+    height: glowDiameter,
+    width: glowDiameter,
+    borderRadius: glowBorderRadius,
+    pointerEvents: "none"
+  },
+  shadow: {
+    position: "absolute",
+    top: glowBorderWidth,
+    left: glowBorderWidth,
+    boxShadow: "0px 0px -40px rgb(0, 0, 0, 70%)",
     height: glowDiameter,
     width: glowDiameter,
     borderRadius: glowBorderRadius,
@@ -137,8 +160,7 @@ const styles = StyleSheet.create({
     top: cordTop,
     position: "absolute",
     height: "5vh",
-    width: "1vh",
-    backgroundColor: "red"
+    width: "1vh"
   },
   mapContainer: {
     left: mapOffset,
