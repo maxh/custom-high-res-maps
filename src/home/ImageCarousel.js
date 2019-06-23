@@ -82,10 +82,12 @@ const styles = StyleSheet.create({
   },
   image: {
     height: "60vh",
-    opacity: 0.5
+    opacity: 0.6,
+    transition: "opacity .5s"
   },
   selectedImage: {
     height: "60vh",
-    opacity: 1
+    opacity: 1,
+    transition: "opacity .5s"
   }
 });

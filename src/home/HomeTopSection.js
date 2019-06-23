@@ -5,7 +5,7 @@ import colors from "common/colors";
 
 import image from "home/images/lake.jpg";
 
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaInstagram } from "react-icons/fa";
 
 export default class HomeTopSection extends React.Component {
   handleOnClick = () => {
@@ -33,7 +33,19 @@ export default class HomeTopSection extends React.Component {
           </div>
           <div className={css(styles.menuContainer)}>
             <div className={css(styles.leftMenu)}>
-              <h1 className={css(styles.header)}>Map Lamps</h1>
+              <a href="/" className={css(styles.a)}>
+                <h1 className={[css(styles.header), css(styles.a)].join(" ")}>
+                  Map Lamps
+                </h1>
+              </a>
+            </div>
+            <div className={css(styles.rightMenu)}>
+              <a
+                href="https://www.instagram.com/maplamps"
+                className={css(styles.a)}
+              >
+                <FaInstagram className={css(styles.a)} />
+              </a>
             </div>
           </div>
           <div className={css(styles.notch)}>
@@ -49,6 +61,11 @@ export default class HomeTopSection extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  a: {
+    color: "white",
+    textDecoration: "none",
+    cursor: "pointer"
+  },
   imageContainer: {
     position: "absolute",
     width: "100vw",
@@ -65,7 +82,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: "48px",
     paddingBottom: "30px",
-    fontWeight: "normal"
+    fontWeight: "normal",
+    textShadow: "0px 0px 10px rgb(225, 185, 141, .8)"
   },
   menuContainer: {
     position: "absolute",
@@ -146,6 +164,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: "24px",
-    fontWeight: "normal"
+    fontWeight: "normal",
+    margin: 0
   }
 });
