@@ -55,7 +55,10 @@ export default class ImageCarousel extends React.Component {
 }
 
 const getClassName = (index, selectedIndex) => {
-  if (index == selectedIndex % IMAGES.length) {
+  const selected = selectedIndex % IMAGES.length;
+  if (selected >= 0 && index == selected) {
+    return css(styles.selectedImage);
+  } else if (selected < 0 && index == IMAGES.length + selected) {
     return css(styles.selectedImage);
   } else {
     return css(styles.image);

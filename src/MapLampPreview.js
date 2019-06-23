@@ -75,12 +75,12 @@ class MapLampPreview extends React.Component {
             ) : null}
           </ReactMapGL>
         </div>
+        <div className={css(styles.cord)} style={this.getCordColorStyle()} />
         <div className={css(styles.frameBackground)} />
         <div className={css(styles.frame)} style={this.getFrameFinishStyle()} />
         <div className={css(styles.frameShadow)} />
         <div className={css(styles.glow)} />
         <div className={css(styles.shadow)} />
-        <div className={css(styles.cord)} style={this.getCordColorStyle()} />
       </div>
     );
   }
@@ -110,8 +110,10 @@ const mapOffset = `${border - 5}vh`;
 const mapDiameter = `${(radius * 2 + 10) * 2}vh`;
 const mapBorderRadius = `${(radius + border) * 2}vh`;
 
-const cordTop = `${height}vh`;
+const CORD_OFFSET = 3;
+const cordTop = `${height - CORD_OFFSET}vh`;
 const cordLeft = `${height / 2}vh`;
+const cordHeight = `${(100 - height) / 2 + CORD_OFFSET}vh`;
 
 const styles = StyleSheet.create({
   lamp: {
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
     left: cordLeft,
     top: cordTop,
     position: "absolute",
-    height: "5vh",
+    height: cordHeight,
     width: "1vh"
   },
   mapContainer: {

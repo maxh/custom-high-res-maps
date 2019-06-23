@@ -150,8 +150,28 @@ class Editor extends React.Component {
   render() {
     return (
       <div className={css(styles.container)}>
-        <div className={css(styles.leftPanel)}>
-          <header className={css(styles.header)}>Design your Map Lamp</header>
+        <div className={css(styles.previewPanel)}>
+          <h1 className={css(styles.header)}>
+            <a href="/" className={css(styles.headerLink)}>
+              Map Lamps
+            </a>
+          </h1>
+          <MapZoomControl
+            onPlusClick={this.handlePlusClick}
+            onMinusClick={this.handleMinusClick}
+          />
+          <MapLampPreview
+            geocoderContainerRef={this.geocoderContainerRef}
+            frameFinish={this.state.selectedFrameFinish}
+            cordColor={this.state.selectedCordColor}
+            latitude={this.state.latitude}
+            longitude={this.state.longitude}
+            zoom={this.state.zoom}
+            onViewportChange={this.handleViewportChange}
+          />
+        </div>
+        <div className={css(styles.formPanel)}>
+          <h2 className={css(styles.formHeader)}>Design your Map Lamp</h2>
           <div className={css(styles.formItems)}>
             <FormItem name="Location">
               <div ref={this.geocoderContainerRef} />
@@ -192,21 +212,6 @@ class Editor extends React.Component {
             <Button>Next</Button>
           </div>
         </div>
-        <div className={css(styles.rightPanel)}>
-          <MapZoomControl
-            onPlusClick={this.handlePlusClick}
-            onMinusClick={this.handleMinusClick}
-          />
-          <MapLampPreview
-            geocoderContainerRef={this.geocoderContainerRef}
-            frameFinish={this.state.selectedFrameFinish}
-            cordColor={this.state.selectedCordColor}
-            latitude={this.state.latitude}
-            longitude={this.state.longitude}
-            zoom={this.state.zoom}
-            onViewportChange={this.handleViewportChange}
-          />
-        </div>
       </div>
     );
   }
@@ -215,19 +220,29 @@ class Editor extends React.Component {
 export default Editor;
 
 const styles = StyleSheet.create({
+  header: {
+    position: "absolute",
+    top: "20px",
+    left: "20px",
+    margin: 0
+  },
+  headerLink: {
+    color: "black",
+    textDecoration: "none"
+  },
   container: {
     display: "flex",
     flexDirection: "row",
     height: "100%"
   },
-  leftPanel: {
+  formPanel: {
     padding: "20px",
     position: "relative",
     width: "300px",
     display: "flex",
     flexDirection: "column"
   },
-  rightPanel: {
+  previewPanel: {
     backgroundColor: "#EEE",
     position: "relative",
     overflow: "hidden",
@@ -243,7 +258,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "flex-end"
   },
-  header: {
+  formHeader: {
     fontWeight: "bold"
   },
   hint: {

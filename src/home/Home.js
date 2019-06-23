@@ -29,9 +29,8 @@ export default function(props) {
             <div className={css(styles.textItem)}>
               <h2>Latest Release</h2>
               <h1>Circular Map Lamp</h1>
-              The special release Manhattan lamp is the original map design. Cut
-              from hardwood of your choice, the lamp stands 24 inches tall and
-              10 inches wide.
+              The circular map lets you select anywhere in the world to feature
+              on your map lamp.
             </div>
           </div>
           <div className={css(styles.model)}>
@@ -45,9 +44,8 @@ export default function(props) {
             <div className={css(styles.textItem)}>
               <h2>Original Release</h2>
               <h1>Manhattan Map Lamp</h1>
-              The special release Manhattan lamp is the original map design. Cut
-              from hardwood of your choice, the lamp stands 24 inches tall and
-              10 inches wide.
+              The hardwood Manhattan lamp is the original map design. The lamp
+              stands 24 inches tall and 10 inches wide.
             </div>
           </div>
         </div>
@@ -68,12 +66,10 @@ const styles = StyleSheet.create({
     }
   },
   textItem: {
-    flex: 1,
-    paddingBottom: "20px"
+    paddingBottom: "20px",
+    width: "35%"
   },
-  imageItem: {
-    flex: 1
-  },
+  imageItem: {},
   image: {
     height: "800px"
   },

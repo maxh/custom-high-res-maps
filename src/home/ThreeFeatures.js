@@ -14,9 +14,9 @@ export default function(props) {
           <FaMapMarkedAlt className={css(styles.detailIcon)} />
           <h2 className={css(styles.detailTitle)}>Any location</h2>
           <div className={css(styles.detailDescription)}>
-            Our online design tool makes it easy to select any place for your
-            map lamp. It could be where you live now, grew up, or took a special
-            trip!
+            Our <a href="/editor">online design tool</a> makes it easy to select
+            any place for your map lamp. It could be where you live now, grew
+            up, or took a special trip!
           </div>
         </div>
         <div className={css(styles.detail)}>
