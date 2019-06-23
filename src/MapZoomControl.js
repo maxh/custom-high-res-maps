@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 
-import Button from "./Button";
+import Button from "common/Button";
 
 export default function MapZoomControl(props) {
   return (

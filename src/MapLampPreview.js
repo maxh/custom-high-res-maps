@@ -77,6 +77,7 @@ class MapLampPreview extends React.Component {
         </div>
         <div className={css(styles.frameBackground)} />
         <div className={css(styles.frame)} style={this.getFrameFinishStyle()} />
+        <div className={css(styles.frameShadow)} />
         <div className={css(styles.glow)} />
         <div className={css(styles.shadow)} />
         <div className={css(styles.cord)} style={this.getCordColorStyle()} />
@@ -119,6 +120,14 @@ const styles = StyleSheet.create({
     position: "relative",
     display: "flex",
     flexDirection: "row"
+  },
+  frameShadow: {
+    position: "absolute",
+    height: frameDiameter,
+    width: frameDiameter,
+    borderRadius: glowBorderRadius,
+    boxShadow: "0px 0px 40px rgb(0, 0, 0, 5 0%)",
+    pointerEvents: "none"
   },
   frameBackground: {
     position: "absolute",

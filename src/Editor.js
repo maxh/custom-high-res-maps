@@ -5,9 +5,9 @@ import MapZoomControl from "./MapZoomControl";
 import MapLampPreview from "./MapLampPreview";
 import FormItem from "./FormItem";
 import FormSelect from "./FormSelect";
-import colors from "./colors";
+import colors from "common/colors";
 
-import Button from "./Button";
+import Button from "common/Button";
 
 function setUrlQueryString(params) {
   const searchParams = new URLSearchParams();
@@ -67,8 +67,8 @@ const THEME_OPTIONS = [
 ];
 
 const FRAME_FINISH_OPTIONS = [
-  { value: "black", label: "Black" },
-  { value: "natural", label: "Natural" }
+  { value: "black", label: "Matte Black" },
+  { value: "natural", label: "Baltic Birch" }
 ];
 
 const CORD_COLOR_OPTIONS = [
