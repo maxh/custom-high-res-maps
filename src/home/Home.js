@@ -3,75 +3,65 @@ import { StyleSheet, css } from "aphrodite";
 
 import colors from "common/colors";
 
+import ReactMapGL from "react-map-gl";
+import Geocoder from "react-map-gl-geocoder";
+
+import "mapbox-geocoder.css";
+
 import manhattanWhite from "home/images/manhattan-white.jpg";
 import chicagoWhite from "home/images/chicago-white.jpg";
 
 import HomeTopSection from "home/HomeTopSection";
 import ThreeFeatures from "home/ThreeFeatures";
 import ImageCarousel from "home/ImageCarousel";
+import Models from "home/Models";
 
-export default function(props) {
-  return (
-    <div>
-      <HomeTopSection />
-      <div className={css(styles.middleSection)}>
-        <ThreeFeatures />
-        <ImageCarousel />
-        <div className={css(styles.models)}>
-          <div className={css(styles.model)}>
-            <div className={css(styles.imageItem)}>
-              <img
-                src={chicagoWhite}
-                className={css(styles.image)}
-                alt="Chicago Circular Map Lamp against white background"
-              />
-            </div>
-            <div className={css(styles.textItem)}>
-              <h2>Latest Release</h2>
-              <h1>Circular Map Lamp</h1>
-              The circular map lets you select anywhere in the world to feature
-              on your map lamp.
-            </div>
-          </div>
-          <div className={css(styles.model)}>
-            <div className={css(styles.imageItem)}>
-              <img
-                src={manhattanWhite}
-                className={css(styles.image)}
-                alt="Manhattan Map Lamp against white background"
-              />
-            </div>
-            <div className={css(styles.textItem)}>
-              <h2>Original Release</h2>
-              <h1>Manhattan Map Lamp</h1>
-              The hardwood Manhattan lamp is the original map design. The lamp
-              stands 24 inches tall and 10 inches wide.
+const MAPBOX_TOKEN =
+  "pk.eyJ1IjoibWFwbGFtcHMiLCJhIjoiY2p3NmNoYmYzMGlmcTRhcWsycXNma3NqNSJ9.RBpqn0qnposf4cWpkUsq_g";
+
+class Home extends React.Component {
+  mapRef = React.createRef();
+  geocoderContainerRef = React.createRef();
+
+  render() {
+    return (
+      <div>
+        <HomeTopSection />
+        <div className={css(styles.middleSection)}>
+          <ThreeFeatures />
+          <ImageCarousel />
+          <div lassName={css(styles.launch)}>
+            <div ref={this.geocoderContainerRef} />
+            <div style={{ visibility: "hidden", height: "1px", width: "1px" }}>
+              <ReactMapGL
+                mapboxApiAccessToken={MAPBOX_TOKEN}
+                ref={this.mapRef}
+                width="100%"
+                height="100%"
+              >
+                {this.mapRef ? (
+                  <Geocoder
+                    mapRef={this.mapRef}
+                    containerRef={this.geocoderContainerRef}
+                    onViewportChange={this.props.onViewportChange}
+                    mapboxApiAccessToken={MAPBOX_TOKEN}
+                  />
+                ) : null}
+              </ReactMapGL>
             </div>
           </div>
+          <Models />
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
+export default Home;
+
 const styles = StyleSheet.create({
-  models: {
-    marginTop: "80px"
-  },
-  model: {
-    display: "flex",
-    alignItems: "center",
-    ":nth-child(even)": {
-      flexDirection: "row-reverse"
-    }
-  },
-  textItem: {
-    paddingBottom: "20px",
-    width: "35%"
-  },
-  imageItem: {},
-  image: {
-    height: "800px"
+  launch: {
+    width: "100%"
   },
   middleSection: {
     paddingTop: "90px",

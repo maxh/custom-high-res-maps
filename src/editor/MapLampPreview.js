@@ -3,7 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import ReactMapGL from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 
-import "./mapbox-geocoder.css";
+import "mapbox-geocoder.css";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFwbGFtcHMiLCJhIjoiY2p3NmNoYmYzMGlmcTRhcWsycXNma3NqNSJ9.RBpqn0qnposf4cWpkUsq_g";

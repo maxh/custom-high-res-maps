@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
-import MapZoomControl from "./MapZoomControl";
 
-import MapLampPreview from "./MapLampPreview";
-import FormItem from "./FormItem";
-import FormSelect from "./FormSelect";
+import MapZoomControl from "editor/MapZoomControl";
+import MapLampPreview from "editor/MapLampPreview";
+import FormItem from "editor/FormItem";
+
+import FormSelect from "editor/FormSelect";
 import colors from "common/colors";
 
 import Button from "common/Button";
@@ -224,11 +225,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: "20px",
     left: "20px",
-    margin: 0
+    margin: 0,
+    cursor: "pointer"
   },
   headerLink: {
     color: "black",
-    textDecoration: "none"
+    textDecoration: "none",
+    cursor: "pointer"
   },
   container: {
     display: "flex",

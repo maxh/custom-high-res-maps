@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     color: "white",
     fontWeight: "bold",
+    cursor: "pointer",
     ":hover": {
       backgroundColor: "#eb4f47",
       cursor: "pointer"
