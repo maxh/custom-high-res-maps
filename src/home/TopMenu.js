@@ -10,7 +10,7 @@ export default class TopMenu extends React.Component {
     return (
       <div className={css(styles.menu)}>
         <div className={css(styles.leftMenu)}>
-          <a href="/">
+          <a href="/" className={css(styles.text)}>
             <h1 className={css(styles.text)}>Map Lamps</h1>
           </a>
         </div>
