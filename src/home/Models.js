@@ -4,9 +4,11 @@ import { StyleSheet, css } from "aphrodite";
 import manhattanWhite from "home/images/manhattan-white.jpg";
 import chicagoWhite from "home/images/chicago-white.jpg";
 
+import homeStyles from "home/homeStyles";
+
 export default function(props) {
   return (
-    <div className={css(styles.container)}>
+    <div className={css(homeStyles.middleSection)}>
       <div className={css(styles.model)}>
         <div className={css(styles.imageItem)}>
           <img

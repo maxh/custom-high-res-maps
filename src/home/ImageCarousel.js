@@ -9,6 +9,7 @@ import Carousel, { Dots } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
 
 import colors from "common/colors";
+import homeStyles from "home/homeStyles";
 
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -27,7 +28,7 @@ export default () => {
   );
   const isBigScreen = windowWidth > 1000;
   return (
-    <div className={css(styles.container)}>
+    <div className={css(homeStyles.middleSection)}>
       <Carousel
         value={selectedIndex}
         onChange={setSelectedIndex}

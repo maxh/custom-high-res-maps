@@ -16,12 +16,10 @@ class Home extends React.Component {
     return (
       <div>
         <TopSection />
-        <div className={css(styles.middleSection)}>
-          <ThreeFeatures />
-          <Search />
-          <ImageCarousel />
-          <Models />
-        </div>
+        <ThreeFeatures />
+        <ImageCarousel />
+        <Models />
+        <Search />
         <Footer />
       </div>
     );
@@ -29,16 +27,3 @@ class Home extends React.Component {
 }
 
 export default Home;
-
-const styles = StyleSheet.create({
-  middleSection: {
-    paddingTop: "90px",
-    paddingBottom: "90px",
-    width: "1200px",
-    margin: "auto",
-    width: "90vw",
-    "@media (min-width: 1100px)": {
-      width: "900px"
-    }
-  }
-});

@@ -5,6 +5,10 @@ import { Redirect } from "react-router";
 
 import colors from "common/colors";
 
+import homeStyles from "home/homeStyles";
+
+import fullBleedImage from "home/images/sf-clipped.png";
+
 import ReactMapGL from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 import "mapbox-geocoder.css";
@@ -57,32 +61,41 @@ class Search extends React.Component {
     }
     return (
       <div className={css(styles.container)}>
-        <div className={[css(styles.launch), "home-search-section"].join(" ")}>
-          <div ref={this.geocoderContainerRef} />
-          <button className={css(styles.button)} onClick={this.handleClick}>
-            Create your map lamp
-          </button>
-          <div style={{ visibility: "hidden", height: "1px", width: "1px" }}>
-            <ReactMapGL
-              mapboxApiAccessToken={MAPBOX_TOKEN}
-              ref={this.mapRef}
-              {...MAP_SETTINGS}
-              onViewportChange={this.handleViewportChange}
-              width="100%"
-              height="100%"
-            >
-              {this.mapRef ? (
-                <Geocoder
-                  mapRef={this.mapRef}
-                  containerRef={this.geocoderContainerRef}
-                  placeholder={`Type any location...`}
-                  inputValue={this.state.place}
-                  onResult={this.handleResult}
-                  mapboxApiAccessToken={MAPBOX_TOKEN}
-                  enableEventLogging={false}
-                />
-              ) : null}
-            </ReactMapGL>
+        <div className={css(styles.imageContainer)}>
+          <img className={css(styles.image)} src={fullBleedImage} />
+          <div className={css(styles.imageMask)} />
+        </div>
+        <div className={css(styles.search)}>
+          <h1>Ready to create your map lamp?</h1>
+          <div
+            className={[css(styles.launch), "home-search-section"].join(" ")}
+          >
+            <div ref={this.geocoderContainerRef} />
+            <button className={css(styles.button)} onClick={this.handleClick}>
+              Get started
+            </button>
+            <div style={{ visibility: "hidden", height: "1px", width: "1px" }}>
+              <ReactMapGL
+                mapboxApiAccessToken={MAPBOX_TOKEN}
+                ref={this.mapRef}
+                {...MAP_SETTINGS}
+                onViewportChange={this.handleViewportChange}
+                width="100%"
+                height="100%"
+              >
+                {this.mapRef ? (
+                  <Geocoder
+                    mapRef={this.mapRef}
+                    containerRef={this.geocoderContainerRef}
+                    placeholder={`Type any location...`}
+                    inputValue={this.state.place}
+                    onResult={this.handleResult}
+                    mapboxApiAccessToken={MAPBOX_TOKEN}
+                    enableEventLogging={false}
+                  />
+                ) : null}
+              </ReactMapGL>
+            </div>
           </div>
         </div>
       </div>
@@ -94,14 +107,44 @@ export default Search;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: "80px"
+    marginBottom: "80px",
+    position: "relative"
+  },
+  imageContainer: {
+    position: "absolute",
+    width: "100vw",
+    overflow: "hidden"
+  },
+  image: {
+    width: "100vw",
+    height: "480px",
+    objectPosition: "center top",
+    objectFit: "cover",
+    zIndex: 0,
+    opacity: ".1"
+  },
+  imageMask: {
+    position: "absolute",
+    backgroundImage:
+      "linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))"
+  },
+  search: {
+    paddingTop: "160px",
+    flexDirection: "column",
+    width: "100vw",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   launch: {
     width: "100%",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    "@media (max-width: 600px)": {
+      flexDirection: "column"
+    }
   },
   button: {
     backgroundColor: "#447AB1",
@@ -128,6 +171,10 @@ const styles = StyleSheet.create({
     ":active": {
       cursor: "pointer"
     },
-    ":focus": { outline: 0 }
+    ":focus": { outline: 0 },
+    "@media (max-width: 600px)": {
+      borderRadius: "4px",
+      width: "280px"
+    }
   }
 });

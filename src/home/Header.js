@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
     cursor: "pointer",
     fontSize: "24px",
     fontWeight: "normal",
-    margin: 0
+    margin: 0,
+    "@media (max-width: 420px)": {
+      fontSize: "18px"
+    }
   }
 });

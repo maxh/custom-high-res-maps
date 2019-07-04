@@ -3,11 +3,13 @@ import { StyleSheet, css } from "aphrodite";
 
 import colors from "common/colors";
 
+import homeStyles from "home/homeStyles";
+
 import { FaMapMarkedAlt, FaPalette, FaLightbulb } from "react-icons/fa";
 
 export default function(props) {
   return (
-    <div className={css(styles.container)}>
+    <div className={css(homeStyles.middleSection)}>
       <h1 className={css(styles.h1)}>Create custom backlit maps</h1>
       <div className={css(styles.details)}>
         <div className={css(styles.detail)}>
@@ -41,10 +43,8 @@ export default function(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: "80px"
-  },
   h1: {
+    paddingTop: "80px",
     width: "100%",
     textAlign: "center"
   },

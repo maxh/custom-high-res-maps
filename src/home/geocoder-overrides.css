@@ -5,13 +5,25 @@
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   height: 50px;
-  padding: 6px;
-  width: 400px !important;
+  padding: 6px 12px;
+  font-size: 15px;
+  line-height: 20px;
+  width: 360px !important;
+}
+
+@media (max-width: 600px) {
+  .home-search-section .mapboxgl-ctrl-geocoder {
+    border-radius: 4px;
+    margin-bottom: 25px;
+    width: 280px !important;
+  }
 }
 
 .home-search-section .mapboxgl-ctrl-geocoder--input {
   font-size: medium;
-  padding: 6px;
+  padding: 0px;
+  line-height: 20px;
+  height: 36px;
 }
 
 .home-search-section .mapboxgl-ctrl-geocoder--icon {
