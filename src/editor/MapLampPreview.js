@@ -67,10 +67,13 @@ class MapLampPreview extends React.Component {
           >
             {this.mapRef ? (
               <Geocoder
+                enableEventLogging={false}
                 mapRef={this.mapRef}
+                inputValue={this.props.placeName}
                 containerRef={this.props.geocoderContainerRef}
                 onViewportChange={this.props.onViewportChange}
                 mapboxApiAccessToken={MAPBOX_TOKEN}
+                onResult={this.props.onSearchResult}
               />
             ) : null}
           </ReactMapGL>

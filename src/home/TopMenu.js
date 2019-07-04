@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 
-import colors from "common/colors";
-
 import { FaInstagram } from "react-icons/fa";
 
 export default class TopMenu extends React.Component {

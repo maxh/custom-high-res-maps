@@ -8,8 +8,6 @@ import { useWindowWidth } from "@react-hook/window-size";
 import Carousel, { Dots } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
 
-import "./carousel-overrides.css";
-
 import colors from "common/colors";
 
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";

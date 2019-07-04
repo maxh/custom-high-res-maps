@@ -48,6 +48,7 @@ const parseUrl = queryString => {
     lat: parseFloat(getParam("lat")),
     lon: parseFloat(getParam("lon")),
     zoom: parseFloat(getParam("zoom")),
+    placeName: getParam("placeName"),
     density: findOption(DENSITY_OPTIONS, getParam("density")),
     theme: findOption(THEME_OPTIONS, getParam("theme")),
     frameFinish: findOption(FRAME_FINISH_OPTIONS, getParam("frameFinish")),
@@ -89,6 +90,7 @@ class Editor extends React.Component {
       latitude: params.lat || SF_LAT,
       longitude: params.lon || SF_LON,
       zoom: params.zoom || SF_ZOOM,
+      placeName: params.placeName || "",
       selectedDensity: params.density || DENSITY_OPTIONS[0],
       selectedTheme: params.theme || THEME_OPTIONS[0],
       selectedFrameFinish: params.frameFinish || FRAME_FINISH_OPTIONS[0],
@@ -109,7 +111,7 @@ class Editor extends React.Component {
         frameFinish: this.state.selectedFrameFinish.value,
         cordColor: this.state.selectedCordColor.value
       });
-      this.props.history.push(`?${url}`);
+      this.props.history.replace(`?${url}`);
     },
     500,
     false
@@ -138,6 +140,14 @@ class Editor extends React.Component {
       longitude: viewport.longitude,
       zoom: viewport.zoom
     });
+
+  handleSearchResult = () => {
+    // We only need the hardcoded search result for when you initially
+    // land on the editor from the homepage. If a search is conducted
+    // from within the editor, we just want to let the geocoder manage
+    // its own state, hence setting null here.
+    this.setState({ placeName: null });
+  };
 
   handleDensitySelect = selectedDensity =>
     this.setStateAndUpdateUrl({ selectedDensity });
@@ -168,7 +178,9 @@ class Editor extends React.Component {
             latitude={this.state.latitude}
             longitude={this.state.longitude}
             zoom={this.state.zoom}
+            placeName={this.state.placeName}
             onViewportChange={this.handleViewportChange}
+            onSearchResult={this.handleSearchResult}
           />
         </div>
         <div className={css(styles.formPanel)}>

@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 
-import colors from "common/colors";
-
 import manhattanWhite from "home/images/manhattan-white.jpg";
 import chicagoWhite from "home/images/chicago-white.jpg";
 
