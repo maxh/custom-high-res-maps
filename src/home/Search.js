@@ -147,8 +147,9 @@ const styles = StyleSheet.create({
   ready: {
     textAlign: "center",
     padding: "1em",
-    paddingTop: "160px",
+    paddingTop: "200px",
     "@media (max-width: 600px)": {
+      paddingTop: "100px",
       fontSize: "24px"
     }
   },

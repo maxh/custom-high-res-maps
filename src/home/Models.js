@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    "@media (min-width: 800px)": {
+    "@media (min-width: 700px)": {
       flexDirection: "row",
       ":nth-child(even)": {
         flexDirection: "row-reverse"

@@ -8,9 +8,7 @@ export default class Footer extends React.Component {
     return (
       <div className={css(styles.menu)}>
         <div className={css(styles.leftMenu)} />
-        <div className={css(styles.rightMenu)}>
-          Questions or comments? Reach us at hi@maplamps.com
-        </div>
+        <div className={css(styles.rightMenu)}>Reach us at hi@maplamps.com</div>
       </div>
     );
   }
@@ -20,7 +18,7 @@ const styles = StyleSheet.create({
   menu: {
     position: "relative",
     margin: "auto",
-    paddingTop: "90px",
+    paddingTop: "60px",
     width: "80vw",
     height: "100px",
     "@media (min-width: 1100px)": {

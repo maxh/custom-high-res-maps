@@ -45,6 +45,9 @@ export default function(props) {
 const styles = StyleSheet.create({
   h1: {
     paddingTop: "80px",
+    "@media (max-width: 800px)": {
+      paddingTop: "40px"
+    },
     width: "100%",
     textAlign: "center"
   },
