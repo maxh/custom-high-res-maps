@@ -56,32 +56,34 @@ class Search extends React.Component {
       );
     }
     return (
-      <div className={[css(styles.launch), "home-search-section"].join(" ")}>
-        <div ref={this.geocoderContainerRef} />
-        <button className={css(styles.button)} onClick={this.handleClick}>
-          Create your map lamp
-        </button>
-        <div style={{ visibility: "hidden", height: "1px", width: "1px" }}>
-          <ReactMapGL
-            mapboxApiAccessToken={MAPBOX_TOKEN}
-            ref={this.mapRef}
-            {...MAP_SETTINGS}
-            onViewportChange={this.handleViewportChange}
-            width="100%"
-            height="100%"
-          >
-            {this.mapRef ? (
-              <Geocoder
-                mapRef={this.mapRef}
-                containerRef={this.geocoderContainerRef}
-                placeholder={`Type any location...`}
-                inputValue={this.state.place}
-                onResult={this.handleResult}
-                mapboxApiAccessToken={MAPBOX_TOKEN}
-                enableEventLogging={false}
-              />
-            ) : null}
-          </ReactMapGL>
+      <div className={css(styles.container)}>
+        <div className={[css(styles.launch), "home-search-section"].join(" ")}>
+          <div ref={this.geocoderContainerRef} />
+          <button className={css(styles.button)} onClick={this.handleClick}>
+            Create your map lamp
+          </button>
+          <div style={{ visibility: "hidden", height: "1px", width: "1px" }}>
+            <ReactMapGL
+              mapboxApiAccessToken={MAPBOX_TOKEN}
+              ref={this.mapRef}
+              {...MAP_SETTINGS}
+              onViewportChange={this.handleViewportChange}
+              width="100%"
+              height="100%"
+            >
+              {this.mapRef ? (
+                <Geocoder
+                  mapRef={this.mapRef}
+                  containerRef={this.geocoderContainerRef}
+                  placeholder={`Type any location...`}
+                  inputValue={this.state.place}
+                  onResult={this.handleResult}
+                  mapboxApiAccessToken={MAPBOX_TOKEN}
+                  enableEventLogging={false}
+                />
+              ) : null}
+            </ReactMapGL>
+          </div>
         </div>
       </div>
     );
@@ -91,6 +93,9 @@ class Search extends React.Component {
 export default Search;
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: "80px"
+  },
   launch: {
     width: "100%",
     display: "flex",

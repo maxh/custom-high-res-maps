@@ -7,10 +7,13 @@ import image from "home/images/lake.jpg";
 
 import { FaChevronDown } from "react-icons/fa";
 
-import TopMenu from "home/TopMenu";
+import Header from "home/Header";
 
 export default class HomeTopSection extends React.Component {
-  handleOnClick = () => {
+  handleClickRed = () => {
+    window.scrollTo(0, window.innerHeight * 1.5);
+  };
+  handleClickArrow = () => {
     window.scrollTo(0, window.innerHeight * 0.9);
   };
   render() {
@@ -27,18 +30,18 @@ export default class HomeTopSection extends React.Component {
           <div className={css(styles.taglineContainer)}>
             <h2 className={css(styles.tagline)}>Light up your place.</h2>
             <button
-              onClick={this.handleOnClick}
+              onClick={this.handleClickRed}
               className={css(styles.callToAction)}
             >
               Browse Map Lamps
             </button>
           </div>
           <div className={css(styles.menuContainer)}>
-            <TopMenu />
+            <Header />
           </div>
           <div className={css(styles.notch)}>
             <FaChevronDown
-              onClick={this.handleOnClick}
+              onClick={this.handleClickArrow}
               className={css(styles.arrow)}
             />
           </div>
