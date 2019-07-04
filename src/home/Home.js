@@ -11,7 +11,7 @@ import "mapbox-geocoder.css";
 import manhattanWhite from "home/images/manhattan-white.jpg";
 import chicagoWhite from "home/images/chicago-white.jpg";
 
-import HomeTopSection from "home/HomeTopSection";
+import TopSection from "home/TopSection";
 import ThreeFeatures from "home/ThreeFeatures";
 import ImageCarousel from "home/ImageCarousel";
 import Models from "home/Models";
@@ -26,7 +26,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <HomeTopSection />
+        <TopSection />
         <div className={css(styles.middleSection)}>
           <ThreeFeatures />
           <ImageCarousel />

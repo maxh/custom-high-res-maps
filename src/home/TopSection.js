@@ -5,7 +5,9 @@ import colors from "common/colors";
 
 import image from "home/images/lake.jpg";
 
-import { FaChevronDown, FaInstagram } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
+
+import TopMenu from "home/TopMenu";
 
 export default class HomeTopSection extends React.Component {
   handleOnClick = () => {
@@ -32,21 +34,7 @@ export default class HomeTopSection extends React.Component {
             </button>
           </div>
           <div className={css(styles.menuContainer)}>
-            <div className={css(styles.leftMenu)}>
-              <a href="/" className={css(styles.a)}>
-                <h1 className={[css(styles.header), css(styles.a)].join(" ")}>
-                  Map Lamps
-                </h1>
-              </a>
-            </div>
-            <div className={css(styles.rightMenu)}>
-              <a
-                href="https://www.instagram.com/maplamps"
-                className={css(styles.a)}
-              >
-                <FaInstagram className={css(styles.a)} />
-              </a>
-            </div>
+            <TopMenu />
           </div>
           <div className={css(styles.notch)}>
             <FaChevronDown
@@ -61,11 +49,6 @@ export default class HomeTopSection extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  a: {
-    color: "white",
-    textDecoration: "none",
-    cursor: "pointer"
-  },
   imageContainer: {
     position: "absolute",
     width: "100vw",
@@ -87,15 +70,9 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     position: "absolute",
-    color: "white",
-    fontSize: "24px",
     width: "100vw",
     display: "flex",
-    justifyContent: "center",
-    paddingTop: "30px"
-  },
-  leftMenu: {
-    width: "900px"
+    justifyContent: "center"
   },
   taglineContainer: {
     width: "100vw",
@@ -162,10 +139,5 @@ const styles = StyleSheet.create({
     userSelect: "none",
     color: colors.textGray,
     backgroundColor: colors.selectedGray
-  },
-  header: {
-    fontSize: "24px",
-    fontWeight: "normal",
-    margin: 0
   }
 });
