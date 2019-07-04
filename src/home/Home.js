@@ -67,6 +67,10 @@ const styles = StyleSheet.create({
     paddingTop: "90px",
     paddingBottom: "90px",
     width: "1200px",
-    margin: "auto"
+    margin: "auto",
+    width: "90vw",
+    "@media (min-width: 1100px)": {
+      width: "900px"
+    }
   }
 });

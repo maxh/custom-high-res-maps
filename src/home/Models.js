@@ -8,7 +8,7 @@ import chicagoWhite from "home/images/chicago-white.jpg";
 
 export default function(props) {
   return (
-    <div className={css(styles.models)}>
+    <div className={css(styles.container)}>
       <div className={css(styles.model)}>
         <div className={css(styles.imageItem)}>
           <img
@@ -44,22 +44,33 @@ export default function(props) {
 }
 
 const styles = StyleSheet.create({
-  models: {
-    marginTop: "80px"
+  container: {
+    marginBottom: "80px"
   },
   model: {
     display: "flex",
     alignItems: "center",
-    ":nth-child(even)": {
-      flexDirection: "row-reverse"
+    flexDirection: "column",
+    "@media (min-width: 800px)": {
+      flexDirection: "row",
+      ":nth-child(even)": {
+        flexDirection: "row-reverse"
+      }
     }
   },
   textItem: {
     paddingBottom: "20px",
-    width: "35%"
+    "@media (min-width: 800px)": {
+      width: "35%"
+    }
   },
-  imageItem: {},
   image: {
-    height: "800px"
+    height: "800px",
+    "@media (max-width: 1000px)": {
+      height: "600px"
+    },
+    "@media (max-width: 800px)": {
+      height: "400px"
+    }
   }
 });

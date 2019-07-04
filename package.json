@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@brainhubeu/react-carousel": "^1.10.17",
+    "@react-hook/window-size": "^1.0.1",
     "aphrodite": "^2.3.1",
     "mapbox-gl": "^1.0.0",
     "react": "^16.8.6",

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, css } from "aphrodite";
+
+import { useWindowWidth } from "@react-hook/window-size";
 
 // https://github.com/brainhubeu/react-carousel
 // https://brainhubeu.github.io/react-carousel/docs/api/carousel
-import Carousel from "@brainhubeu/react-carousel";
+import Carousel, { Dots } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
+
+import "./carousel-overrides.css";
 
 import colors from "common/colors";
 
@@ -17,28 +21,29 @@ import manhattanTree from "home/images/manhattan-tree.jpg";
 
 const IMAGES = [brick, tree, white, manhattanTree];
 
-export default class ImageCarousel extends React.Component {
-  state = {
-    selectedIndex: 0
-  };
-
-  handleChange = selectedIndex => {
-    this.setState({ selectedIndex });
-  };
-
-  render() {
-    const { selectedIndex } = this.state;
-    return (
+export default () => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const windowWidth = useWindowWidth(
+    360 /* initialWidth when there is no window */,
+    { wait: 100 }
+  );
+  const isBigScreen = windowWidth > 1000;
+  return (
+    <div className={css(styles.container)}>
       <Carousel
         value={selectedIndex}
-        onChange={this.handleChange}
-        slidesPerPage={2}
+        onChange={setSelectedIndex}
+        slidesPerPage={isBigScreen ? 2 : 1}
         offset={120}
-        centered={true}
+        centered
         infinite
         keepDirectionWhenDragging
-        arrowLeft={<FaArrowLeft className={css(styles.arrow)} />}
-        arrowRight={<FaArrowRight className={css(styles.arrow)} />}
+        arrowLeft={
+          isBigScreen ? <FaArrowLeft className={css(styles.arrow)} /> : null
+        }
+        arrowRight={
+          isBigScreen ? <FaArrowRight className={css(styles.arrow)} /> : null
+        }
         addArrowClickHandler
       >
         {IMAGES.map((image, index) => (
@@ -50,9 +55,18 @@ export default class ImageCarousel extends React.Component {
           />
         ))}
       </Carousel>
-    );
-  }
-}
+      {isBigScreen ? null : (
+        <div className={css(styles.dots)}>
+          <Dots
+            value={selectedIndex}
+            onChange={setSelectedIndex}
+            number={IMAGES.length}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const getClassName = (index, selectedIndex) => {
   const selected = selectedIndex % IMAGES.length;
@@ -66,6 +80,12 @@ const getClassName = (index, selectedIndex) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: "80px"
+  },
+  dots: {
+    paddingTop: "20px"
+  },
   arrow: {
     height: "20px",
     width: "20px",

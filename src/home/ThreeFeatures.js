@@ -7,7 +7,7 @@ import { FaMapMarkedAlt, FaPalette, FaLightbulb } from "react-icons/fa";
 
 export default function(props) {
   return (
-    <div>
+    <div className={css(styles.container)}>
       <h1 className={css(styles.h1)}>Create custom backlit maps</h1>
       <div className={css(styles.details)}>
         <div className={css(styles.detail)}>
@@ -41,13 +41,18 @@ export default function(props) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: "80px"
+  },
   h1: {
     width: "100%",
     textAlign: "center"
   },
   details: {
     display: "flex",
-    marginBottom: "80px"
+    "@media (max-width: 800px)": {
+      flexDirection: "column"
+    }
   },
   detailDescription: {
     color: colors.textGray,
@@ -57,7 +62,10 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     padding: "20px",
-    flex: 1
+    flex: 1,
+    "@media (max-width: 800px)": {
+      alignItems: "center"
+    }
   },
   detailIcon: {
     height: "40px",
