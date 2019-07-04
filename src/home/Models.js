@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     }
   },
   image: {
-    height: "800px",
+    height: "700px",
     "@media (max-width: 1000px)": {
       height: "600px"
     },

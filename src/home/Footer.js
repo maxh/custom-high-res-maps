@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   menu: {
     position: "relative",
     margin: "auto",
+    paddingTop: "90px",
     width: "80vw",
     height: "100px",
     "@media (min-width: 1100px)": {

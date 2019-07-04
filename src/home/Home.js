@@ -6,7 +6,6 @@ import ThreeFeatures from "home/ThreeFeatures";
 import ImageCarousel from "home/ImageCarousel";
 import Models from "home/Models";
 import Search from "home/Search";
-import Footer from "home/Footer";
 
 class Home extends React.Component {
   mapRef = React.createRef();
@@ -20,7 +19,6 @@ class Home extends React.Component {
         <ImageCarousel />
         <Models />
         <Search />
-        <Footer />
       </div>
     );
   }

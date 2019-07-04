@@ -5,6 +5,8 @@ import { Redirect } from "react-router";
 
 import colors from "common/colors";
 
+import Footer from "home/Footer";
+
 import homeStyles from "home/homeStyles";
 
 import fullBleedImage from "home/images/sf-clipped.png";
@@ -63,10 +65,9 @@ class Search extends React.Component {
       <div className={css(styles.container)}>
         <div className={css(styles.imageContainer)}>
           <img className={css(styles.image)} src={fullBleedImage} />
-          <div className={css(styles.imageMask)} />
         </div>
         <div className={css(styles.search)}>
-          <h1>Ready to create your map lamp?</h1>
+          <h1 className={css(styles.ready)}>Ready to create your map lamp?</h1>
           <div
             className={[css(styles.launch), "home-search-section"].join(" ")}
           >
@@ -97,6 +98,7 @@ class Search extends React.Component {
               </ReactMapGL>
             </div>
           </div>
+          <Footer />
         </div>
       </div>
     );
@@ -107,29 +109,25 @@ export default Search;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: "80px",
-    position: "relative"
-  },
-  imageContainer: {
-    position: "absolute",
-    width: "100vw",
+    position: "relative",
     overflow: "hidden"
   },
+  imageContainer: {
+    position: "absolute"
+  },
   image: {
-    width: "100vw",
-    height: "480px",
+    "@media (max-width: 600px)": {
+      height: "600px"
+    },
+    "@media (min-width: 601px)": {
+      width: "100vw"
+    },
     objectPosition: "center top",
     objectFit: "cover",
     zIndex: 0,
-    opacity: ".1"
-  },
-  imageMask: {
-    position: "absolute",
-    backgroundImage:
-      "linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))"
+    opacity: ".2"
   },
   search: {
-    paddingTop: "160px",
     flexDirection: "column",
     width: "100vw",
     display: "flex",
@@ -144,6 +142,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     "@media (max-width: 600px)": {
       flexDirection: "column"
+    }
+  },
+  ready: {
+    textAlign: "center",
+    padding: "1em",
+    paddingTop: "160px",
+    "@media (max-width: 600px)": {
+      fontSize: "24px"
     }
   },
   button: {
