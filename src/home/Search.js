@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     height: "50px",
-    borderColor: "#447AB1",
+    borderColor: "#000",
     borderStyle: "solid",
     borderLeft: "none",
     position: "relative",
