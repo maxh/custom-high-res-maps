@@ -69,9 +69,9 @@ export default () => {
 
 const getClassName = (index, selectedIndex) => {
   const selected = selectedIndex % IMAGES.length;
-  if (selected >= 0 && index == selected) {
+  if (selected >= 0 && index === selected) {
     return css(styles.selectedImage);
-  } else if (selected < 0 && index == IMAGES.length + selected) {
+  } else if (selected < 0 && index === IMAGES.length + selected) {
     return css(styles.selectedImage);
   } else {
     return css(styles.image);

@@ -3,11 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 
 import { Redirect } from "react-router";
 
-import colors from "common/colors";
-
 import Footer from "home/Footer";
-
-import homeStyles from "home/homeStyles";
 
 import fullBleedImage from "home/images/sf-clipped.png";
 
@@ -64,7 +60,11 @@ class Search extends React.Component {
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.imageContainer)}>
-          <img className={css(styles.image)} src={fullBleedImage} />
+          <img
+            className={css(styles.image)}
+            src={fullBleedImage}
+            alt="light background map of sf"
+          />
         </div>
         <div className={css(styles.search)}>
           <h1 className={css(styles.ready)}>Ready to create your map lamp?</h1>

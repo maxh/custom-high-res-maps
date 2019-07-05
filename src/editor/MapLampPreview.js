@@ -47,7 +47,7 @@ const MAP_SETTINGS = {
 };
 
 const getFrameFinishStyle = frameFinish => {
-  if (frameFinish == "natural") {
+  if (frameFinish === "natural") {
     return { backgroundImage: "url(/wood.jpg)" };
   } else {
     return { backgroundColor: "black" };

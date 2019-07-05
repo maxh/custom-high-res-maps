@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 
-import { FaInstagram } from "react-icons/fa";
-
 export default class Footer extends React.Component {
   render() {
     return (

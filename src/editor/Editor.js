@@ -43,9 +43,9 @@ function debounce(func, wait, immediate) {
 const parseUrl = queryString => {
   const params = new URLSearchParams(queryString);
   const getParam = key =>
-    params.get(key) == "undefined" ? null : params.get(key);
+    params.get(key) === "undefined" ? null : params.get(key);
   const findOption = (options, key) =>
-    options.find(option => option.value == key);
+    options.find(option => option.value === key);
   return {
     lat: parseFloat(getParam("lat")),
     lon: parseFloat(getParam("lon")),
@@ -252,7 +252,10 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",
-    height: "100%"
+    height: "100%",
+    "@media (max-width: 800px)": {
+      flexDirection: "column"
+    }
   },
   formPanel: {
     padding: "20px",
