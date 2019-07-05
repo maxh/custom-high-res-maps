@@ -91,8 +91,8 @@ class Editor extends React.Component {
       longitude: params.lon || SF_LON,
       zoom: params.zoom || SF_ZOOM,
       placeName: params.placeName || "",
-      selectedDensity: params.density || DENSITY_OPTIONS[0],
-      selectedTheme: params.theme || THEME_OPTIONS[0],
+      selectedDensity: params.density || DENSITY_OPTIONS[1],
+      selectedTheme: params.theme || THEME_OPTIONS[1],
       selectedFrameFinish: params.frameFinish || FRAME_FINISH_OPTIONS[0],
       selectedCordColor: params.cordColor || CORD_COLOR_OPTIONS[0]
     };

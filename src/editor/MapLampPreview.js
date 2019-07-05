@@ -5,6 +5,9 @@ import Geocoder from "react-map-gl-geocoder";
 
 import "mapbox-geocoder.css";
 
+// TODO: Use transparency instead of colors so gradient shows through.
+// Maybe with somekind of manual per-pixel transformation in the
+// Mapbox WebGL layer, after Mapbox renders but before frame is shown?
 const DARK_STYLES = {
   none: "mapbox://styles/maplamps/cjxpiw8rv1efk1cp6nkd9ur8e",
   low: "mapbox://styles/maplamps/cjxpiw5av1nb51clghg7kp1c2",
