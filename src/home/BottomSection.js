@@ -28,7 +28,7 @@ const MAP_SETTINGS = {
   pitchWithRotate: false
 };
 
-class Search extends React.Component {
+class BottomSection extends React.Component {
   mapRef = React.createRef();
   geocoderContainerRef = React.createRef();
   state = { lon: 0, lat: 0, zoom: 0, placeName: "", launch: false };
@@ -105,7 +105,7 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default BottomSection;
 
 const styles = StyleSheet.create({
   container: {

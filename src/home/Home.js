@@ -4,7 +4,7 @@ import TopSection from "home/TopSection";
 import ThreeFeatures from "home/ThreeFeatures";
 import ImageCarousel from "home/ImageCarousel";
 import Models from "home/Models";
-import Search from "home/Search";
+import BottomSection from "home/BottomSection";
 
 class Home extends React.Component {
   render() {
@@ -14,7 +14,7 @@ class Home extends React.Component {
         <ThreeFeatures />
         <ImageCarousel />
         <Models />
-        <Search />
+        <BottomSection />
       </div>
     );
   }
