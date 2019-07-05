@@ -190,44 +190,47 @@ class Editor extends React.Component {
           />
         </div>
         <div className={css(styles.formPanel)}>
-          <h2 className={css(styles.formHeader)}>Design your Map Lamp</h2>
-          <div className={css(styles.formItems)}>
-            <FormItem name="Location">
-              <div ref={this.geocoderContainerRef} />
-              <div className={css(styles.hint)}>
-                Drag and zoom the map to pick a precise location
-              </div>
-            </FormItem>
-            <FormItem name="Road density">
-              <FormSelect
-                value={this.state.selectedDensity}
-                onChange={this.handleDensitySelect}
-                options={DENSITY_OPTIONS}
-              />
-            </FormItem>
-            <FormItem name="Map theme">
-              <FormSelect
-                value={this.state.selectedTheme}
-                onChange={this.handleThemeSelect}
-                options={THEME_OPTIONS}
-              />
-            </FormItem>
-            <FormItem name="Frame finish">
-              <FormSelect
-                value={this.state.selectedFrameFinish}
-                onChange={this.handleFrameFinishSelect}
-                options={FRAME_FINISH_OPTIONS}
-              />
-            </FormItem>
-            <FormItem name="Cord Color">
-              <FormSelect
-                value={this.state.selectedCordColor}
-                onChange={this.handleCordColorSelect}
-                options={CORD_COLOR_OPTIONS}
-              />
-            </FormItem>
+          <div className={css(styles.formPanelInner)}>
+            <h2 className={css(styles.formHeader)}>Design your Map Lamp</h2>
+            <div className={css(styles.formItems)}>
+              <FormItem name="Location">
+                <div ref={this.geocoderContainerRef} />
+                <div className={css(styles.hint)}>
+                  Drag and zoom the map to pick a precise location
+                </div>
+              </FormItem>
+              <FormItem name="Road density">
+                <FormSelect
+                  value={this.state.selectedDensity}
+                  onChange={this.handleDensitySelect}
+                  options={DENSITY_OPTIONS}
+                />
+              </FormItem>
+              <FormItem name="Map theme">
+                <FormSelect
+                  value={this.state.selectedTheme}
+                  onChange={this.handleThemeSelect}
+                  options={THEME_OPTIONS}
+                />
+              </FormItem>
+              <FormItem name="Frame finish">
+                <FormSelect
+                  value={this.state.selectedFrameFinish}
+                  onChange={this.handleFrameFinishSelect}
+                  options={FRAME_FINISH_OPTIONS}
+                />
+              </FormItem>
+              <FormItem name="Cord Color">
+                <FormSelect
+                  value={this.state.selectedCordColor}
+                  onChange={this.handleCordColorSelect}
+                  options={CORD_COLOR_OPTIONS}
+                />
+              </FormItem>
+            </div>
           </div>
-          <div className={css(styles.formButtons)}>
+          <div className={css(styles.footer)}>
+            <div className={css(styles.total)}>Total: $500</div>
             <Button>Next</Button>
           </div>
         </div>
@@ -238,7 +241,22 @@ class Editor extends React.Component {
 
 export default Editor;
 
+// <FormItem name="Special requests (optional)">
+//   <textarea
+//     className={css(styles.notes)}
+//     placeholder="We may be able to accomodate further customization."
+//   />
+// </FormItem>
+
 const styles = StyleSheet.create({
+  notes: {
+    fontSize: "medium",
+    padding: "6px",
+    height: "4em",
+    "@media (max-width: 640px)": {
+      flex: 1
+    }
+  },
   header: {
     position: "absolute",
     top: "20px",
@@ -267,14 +285,19 @@ const styles = StyleSheet.create({
     }
   },
   formPanel: {
-    margin: "20px",
     position: "relative",
-    width: "300px",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column"
+  },
+  formPanelInner: {
+    width: "300px",
+    margin: "20px",
+    display: "flex",
     "@media (max-width: 800px)": {
       width: "auto"
-    }
+    },
+    flex: 1,
+    flexDirection: "column"
   },
   previewPanel: {
     backgroundColor: "#EEE",
@@ -295,9 +318,18 @@ const styles = StyleSheet.create({
       flexWrap: "wrap"
     }
   },
-  formButtons: {
+  footer: {
+    padding: "25px",
+    backgroundColor: "#555",
+    marginTop: "50px",
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  total: {
+    color: "white",
+    fontSize: "18px",
+    fontWeight: "bold"
   },
   formHeader: {
     fontWeight: "bold"

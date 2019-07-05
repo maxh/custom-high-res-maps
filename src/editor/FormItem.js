@@ -11,6 +11,8 @@ export default ({ name, children }) => (
 const styles = StyleSheet.create({
   formItem: {
     marginTop: "30px",
+    display: "flex",
+    flexDirection: "column",
     "@media (max-width: 800px)": {
       marginLeft: "30px",
       width: "290px"
