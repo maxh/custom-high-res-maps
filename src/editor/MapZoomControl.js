@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     bottom: "20px",
-    right: "20px"
+    right: "20px",
+    "@media (max-width: 800px)": {
+      display: "none"
+    }
   }
 });

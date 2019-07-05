@@ -8,6 +8,8 @@ import FormItem from "editor/FormItem";
 import FormSelect from "editor/FormSelect";
 import colors from "common/colors";
 
+import "./geocoder-overrides.css";
+
 import Button from "common/Button";
 
 export const PANEL_WIDTH_PX = 300;
@@ -193,7 +195,7 @@ class Editor extends React.Component {
             <FormItem name="Location">
               <div ref={this.geocoderContainerRef} />
               <div className={css(styles.hint)}>
-                Click and drag the map to pick a precise location
+                Drag and zoom the map to pick a precise location
               </div>
             </FormItem>
             <FormItem name="Road density">
@@ -242,7 +244,13 @@ const styles = StyleSheet.create({
     top: "20px",
     left: "20px",
     margin: 0,
-    cursor: "pointer"
+    cursor: "pointer",
+    "@media (max-width: 800px)": {
+      fontSize: "18px"
+    },
+    "@media (max-width: 400px)": {
+      fontSize: "12px"
+    }
   },
   headerLink: {
     color: "black",
@@ -254,15 +262,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: "100%",
     "@media (max-width: 800px)": {
-      flexDirection: "column"
+      display: "block",
+      height: "auto"
     }
   },
   formPanel: {
-    padding: "20px",
+    margin: "20px",
     position: "relative",
-    width: `${PANEL_WIDTH_PX}px`,
+    width: "300px",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    "@media (max-width: 800px)": {
+      width: "auto"
+    }
   },
   previewPanel: {
     backgroundColor: "#EEE",
@@ -271,10 +283,17 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    flex: 1
+    flex: 1,
+    "@media (max-width: 800px)": {
+      height: "60vh"
+    }
   },
   formItems: {
-    flexGrow: 1
+    flexGrow: 1,
+    "@media (max-width: 800px)": {
+      display: "flex",
+      flexWrap: "wrap"
+    }
   },
   formButtons: {
     display: "flex",

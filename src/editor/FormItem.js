@@ -10,7 +10,15 @@ export default ({ name, children }) => (
 
 const styles = StyleSheet.create({
   formItem: {
-    marginTop: "30px"
+    marginTop: "30px",
+    "@media (max-width: 800px)": {
+      marginLeft: "30px",
+      width: "290px"
+    },
+    "@media (max-width: 640px)": {
+      marginLeft: "0px",
+      width: "100%"
+    }
   },
   formLabel: {
     display: "inline-block",

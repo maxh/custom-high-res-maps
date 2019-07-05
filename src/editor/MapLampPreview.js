@@ -61,14 +61,25 @@ const MapLampPreview = props => {
     720 /* initialHeight when there is no window */,
     { wait: 100 }
   );
-  const previewHeight = windowHeight;
-  const previewWidth = windowWidth - PANEL_WIDTH_PX;
   let height;
-  if (previewWidth > previewHeight) {
-    height = 90;
-  } else {
-    const ratio = previewWidth / previewHeight;
-    height = 90 * ratio;
+  if (windowWidth > 800) {
+    const previewHeight = windowHeight;
+    const previewWidth = windowWidth - PANEL_WIDTH_PX;
+    if (previewWidth > previewHeight) {
+      height = 90;
+    } else {
+      const ratio = previewWidth / previewHeight;
+      height = 90 * ratio;
+    }
+  } else if (windowWidth < 800) {
+    const previewHeight = windowHeight / 2;
+    const previewWidth = windowWidth;
+    if (previewWidth > previewHeight) {
+      height = 50;
+    } else {
+      const ratio = previewWidth / previewHeight;
+      height = 45 * ratio;
+    }
   }
   const border = height * borderFraction;
   const radius = height * radiusFraction;
