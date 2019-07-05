@@ -3,6 +3,8 @@ import { StyleSheet, css } from "aphrodite";
 import ReactMapGL from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 
+import { useWindowWidth } from "@react-hook/window-size";
+
 import "mapbox-geocoder.css";
 
 // TODO: Use transparency instead of colors so gradient shows through.
@@ -41,34 +43,16 @@ const MAP_SETTINGS = {
   pitchWithRotate: false
 };
 
+const getFrameFinishStyle = frameFinish => {
+  if (frameFinish == "natural") {
+    return { backgroundImage: "url(/wood.jpg)" };
+  } else {
+    return { backgroundColor: "black" };
+  }
+};
+
 class MapLampPreview extends React.Component {
   mapRef = React.createRef();
-
-  handlePlusClick = () => {
-    const { viewport } = this.state;
-    this.setStateAndUpdateUrl({
-      viewport: { ...viewport, zoom: viewport.zoom + 0.5 }
-    });
-  };
-
-  handleMinusClick = () => {
-    const { viewport } = this.state;
-    this.setStateAndUpdateUrl({
-      viewport: { ...viewport, zoom: viewport.zoom - 0.5 }
-    });
-  };
-
-  getCordColorStyle = () => {
-    return { backgroundColor: this.props.cordColor.value };
-  };
-
-  getFrameFinishStyle = () => {
-    if (this.props.frameFinish.value == "natural") {
-      return { backgroundImage: "url(/wood.jpg)" };
-    } else {
-      return { backgroundColor: "black" };
-    }
-  };
 
   render() {
     const height = 90;
@@ -143,7 +127,7 @@ class MapLampPreview extends React.Component {
         <div
           className={css(styles.cord)}
           style={{
-            ...this.getCordColorStyle(),
+            backgroundColor: this.props.cordColor.value,
             left: cordLeft,
             top: cordTop,
             height: cordHeight
@@ -156,7 +140,7 @@ class MapLampPreview extends React.Component {
         <div
           className={css(styles.frame)}
           style={{
-            ...this.getFrameFinishStyle(),
+            ...getFrameFinishStyle(this.props.frameFinish.value),
             height: frameDiameter,
             width: frameDiameter
           }}
