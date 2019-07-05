@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { StyleSheet, css } from "aphrodite";
 import ReactMapGL from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
@@ -51,114 +51,112 @@ const getFrameFinishStyle = frameFinish => {
   }
 };
 
-class MapLampPreview extends React.Component {
-  mapRef = React.createRef();
+const MapLampPreview = props => {
+  const mapRef = useRef(null);
 
-  render() {
-    const height = 90;
-    const border = height * borderFraction;
-    const radius = height * radiusFraction;
+  const height = 90;
+  const border = height * borderFraction;
+  const radius = height * radiusFraction;
 
-    const lampHeight = `${height}vh`;
+  const lampHeight = `${height}vh`;
 
-    const frameDiameter = `${radius * 2 + border * 2}vh`;
+  const frameDiameter = `${radius * 2 + border * 2}vh`;
 
-    const glowBorderWidth = `${border}vh`;
-    const glowBorderRadius = `${radius + border}vh`;
-    const glowDiameter = `${radius * 2}vh`;
+  const glowBorderWidth = `${border}vh`;
+  const glowBorderRadius = `${radius + border}vh`;
+  const glowDiameter = `${radius * 2}vh`;
 
-    const mapOffset = `${border - 5}vh`;
-    const mapDiameter = `${(radius * 2 + 10) * 2}vh`;
-    const mapBorderRadius = `${(radius + border) * 2}vh`;
+  const mapOffset = `${border - 5}vh`;
+  const mapDiameter = `${(radius * 2 + 10) * 2}vh`;
+  const mapBorderRadius = `${(radius + border) * 2}vh`;
 
-    const cordTop = `${height - CORD_OFFSET}vh`;
-    const cordLeft = `${height / 2}vh`;
-    const cordHeight = `${(100 - height) / 2 + CORD_OFFSET}vh`;
+  const cordTop = `${height - CORD_OFFSET}vh`;
+  const cordLeft = `${height / 2}vh`;
+  const cordHeight = `${(100 - height) / 2 + CORD_OFFSET}vh`;
 
-    const glowStyles = {
-      top: glowBorderWidth,
-      left: glowBorderWidth,
-      height: glowDiameter,
-      width: glowDiameter,
-      borderRadius: glowBorderRadius
-    };
+  const glowStyles = {
+    top: glowBorderWidth,
+    left: glowBorderWidth,
+    height: glowDiameter,
+    width: glowDiameter,
+    borderRadius: glowBorderRadius
+  };
 
-    return (
+  return (
+    <div
+      className={css(styles.lamp)}
+      style={{ height: lampHeight, width: lampHeight }}
+    >
       <div
-        className={css(styles.lamp)}
-        style={{ height: lampHeight, width: lampHeight }}
+        className={css(styles.mapContainer)}
+        style={{
+          left: mapOffset,
+          top: mapOffset,
+          height: mapDiameter,
+          width: mapDiameter,
+          borderRadius: mapBorderRadius
+        }}
       >
-        <div
-          className={css(styles.mapContainer)}
-          style={{
-            left: mapOffset,
-            top: mapOffset,
-            height: mapDiameter,
-            width: mapDiameter,
-            borderRadius: mapBorderRadius
-          }}
+        <ReactMapGL
+          ref={mapRef}
+          latitude={props.latitude}
+          longitude={props.longitude}
+          zoom={props.zoom}
+          {...MAP_SETTINGS}
+          width="100%"
+          height="100%"
+          mapboxApiAccessToken={MAPBOX_TOKEN}
+          mapStyle={MAP_STYLES[props.theme][props.density]}
+          onViewportChange={props.onViewportChange}
+          attributionControl={false}
         >
-          <ReactMapGL
-            ref={this.mapRef}
-            latitude={this.props.latitude}
-            longitude={this.props.longitude}
-            zoom={this.props.zoom}
-            {...MAP_SETTINGS}
-            width="100%"
-            height="100%"
-            mapboxApiAccessToken={MAPBOX_TOKEN}
-            mapStyle={MAP_STYLES[this.props.theme][this.props.density]}
-            onViewportChange={this.props.onViewportChange}
-            attributionControl={false}
-          >
-            {this.mapRef ? (
-              <Geocoder
-                enableEventLogging={false}
-                mapRef={this.mapRef}
-                inputValue={this.props.placeName}
-                containerRef={this.props.geocoderContainerRef}
-                onViewportChange={this.props.onViewportChange}
-                mapboxApiAccessToken={MAPBOX_TOKEN}
-                onResult={this.props.onSearchResult}
-              />
-            ) : null}
-          </ReactMapGL>
-        </div>
-        <div
-          className={css(styles.cord)}
-          style={{
-            backgroundColor: this.props.cordColor.value,
-            left: cordLeft,
-            top: cordTop,
-            height: cordHeight
-          }}
-        />
-        <div
-          className={css(styles.frameBackground)}
-          style={{ height: frameDiameter, width: frameDiameter }}
-        />
-        <div
-          className={css(styles.frame)}
-          style={{
-            ...getFrameFinishStyle(this.props.frameFinish.value),
-            height: frameDiameter,
-            width: frameDiameter
-          }}
-        />
-        <div
-          className={css(styles.frameShadow)}
-          style={{
-            height: frameDiameter,
-            width: frameDiameter,
-            borderRadius: glowBorderRadius
-          }}
-        />
-        <div className={css(styles.glow)} style={glowStyles} />
-        <div className={css(styles.shadow)} style={glowStyles} />
+          {mapRef ? (
+            <Geocoder
+              enableEventLogging={false}
+              mapRef={mapRef}
+              inputValue={props.placeName}
+              containerRef={props.geocoderContainerRef}
+              onViewportChange={props.onViewportChange}
+              mapboxApiAccessToken={MAPBOX_TOKEN}
+              onResult={props.onSearchResult}
+            />
+          ) : null}
+        </ReactMapGL>
       </div>
-    );
-  }
-}
+      <div
+        className={css(styles.cord)}
+        style={{
+          backgroundColor: props.cordColor,
+          left: cordLeft,
+          top: cordTop,
+          height: cordHeight
+        }}
+      />
+      <div
+        className={css(styles.frameBackground)}
+        style={{ height: frameDiameter, width: frameDiameter }}
+      />
+      <div
+        className={css(styles.frame)}
+        style={{
+          ...getFrameFinishStyle(props.frameFinish),
+          height: frameDiameter,
+          width: frameDiameter
+        }}
+      />
+      <div
+        className={css(styles.frameShadow)}
+        style={{
+          height: frameDiameter,
+          width: frameDiameter,
+          borderRadius: glowBorderRadius
+        }}
+      />
+      <div className={css(styles.glow)} style={glowStyles} />
+      <div className={css(styles.shadow)} style={glowStyles} />
+    </div>
+  );
+};
 
 export default MapLampPreview;
 
