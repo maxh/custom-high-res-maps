@@ -18,7 +18,8 @@
     "react-map-gl": "^5.0.3",
     "react-map-gl-geocoder": "^2.0.5",
     "react-router-dom": "^5.0.1",
-    "react-select": "^3.0.4"
+    "react-select": "^3.0.4",
+    "react-stripe-elements": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

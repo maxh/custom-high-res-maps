@@ -12,6 +12,8 @@ import "./geocoder-overrides.css";
 
 import Button from "common/Button";
 
+import { Redirect } from "react-router";
+
 export const PANEL_WIDTH_PX = 300;
 
 function setUrlQueryString(params) {
@@ -162,7 +164,12 @@ class Editor extends React.Component {
   handleCordColorSelect = selectedCordColor =>
     this.setStateAndUpdateUrl({ selectedCordColor });
 
+  handleNextClick = () => this.setState({ checkout: true });
+
   render() {
+    if (this.state.checkout) {
+      return <Redirect push to={`/checkout`} />;
+    }
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.previewPanel)}>
@@ -231,7 +238,7 @@ class Editor extends React.Component {
           </div>
           <div className={css(styles.footer)}>
             <div className={css(styles.total)}>Total: $500</div>
-            <Button>Next</Button>
+            <Button onClick={this.handleNextClick}>Next</Button>
           </div>
         </div>
       </div>
