@@ -70,10 +70,32 @@ class MapLampPreview extends React.Component {
     }
   };
 
+  getGlowStyles = () => {
+    return {
+      top: glowBorderWidth,
+      left: glowBorderWidth,
+      height: glowDiameter,
+      width: glowDiameter,
+      borderRadius: glowBorderRadius
+    };
+  };
+
   render() {
     return (
-      <div className={css(styles.lamp)}>
-        <div className={css(styles.mapContainer)}>
+      <div
+        className={css(styles.lamp)}
+        style={{ height: lampHeight, width: lampHeight }}
+      >
+        <div
+          className={css(styles.mapContainer)}
+          style={{
+            left: mapOffset,
+            top: mapOffset,
+            height: mapDiameter,
+            width: mapDiameter,
+            borderRadius: mapBorderRadius
+          }}
+        >
           <ReactMapGL
             ref={this.mapRef}
             latitude={this.props.latitude}
@@ -100,12 +122,37 @@ class MapLampPreview extends React.Component {
             ) : null}
           </ReactMapGL>
         </div>
-        <div className={css(styles.cord)} style={this.getCordColorStyle()} />
-        <div className={css(styles.frameBackground)} />
-        <div className={css(styles.frame)} style={this.getFrameFinishStyle()} />
-        <div className={css(styles.frameShadow)} />
-        <div className={css(styles.glow)} />
-        <div className={css(styles.shadow)} />
+        <div
+          className={css(styles.cord)}
+          style={{
+            ...this.getCordColorStyle(),
+            left: cordLeft,
+            top: cordTop,
+            height: cordHeight
+          }}
+        />
+        <div
+          className={css(styles.frameBackground)}
+          style={{ height: frameDiameter, width: frameDiameter }}
+        />
+        <div
+          className={css(styles.frame)}
+          style={{
+            ...this.getFrameFinishStyle(),
+            height: frameDiameter,
+            width: frameDiameter
+          }}
+        />
+        <div
+          className={css(styles.frameShadow)}
+          style={{
+            height: frameDiameter,
+            width: frameDiameter,
+            borderRadius: glowBorderRadius
+          }}
+        />
+        <div className={css(styles.glow)} style={this.getGlowStyles()} />
+        <div className={css(styles.shadow)} style={this.getGlowStyles()} />
       </div>
     );
   }
@@ -142,69 +189,42 @@ const cordHeight = `${(100 - height) / 2 + CORD_OFFSET}vh`;
 
 const styles = StyleSheet.create({
   lamp: {
-    height: lampHeight,
-    width: lampHeight,
     position: "relative",
     display: "flex",
     flexDirection: "row"
   },
   frameShadow: {
     position: "absolute",
-    height: frameDiameter,
-    width: frameDiameter,
-    borderRadius: glowBorderRadius,
     boxShadow: "0px 0px 40px rgb(0, 0, 0, 5 0%)",
     pointerEvents: "none"
   },
   frameBackground: {
     position: "absolute",
-    height: frameDiameter,
-    width: frameDiameter,
     pointerEvents: "none",
     clipPath: "url(#donut-path)",
     backgroundColor: "black"
   },
   frame: {
     position: "absolute",
-    height: frameDiameter,
-    width: frameDiameter,
     pointerEvents: "none",
     clipPath: "url(#donut-path)"
   },
   glow: {
     position: "absolute",
-    top: glowBorderWidth,
-    left: glowBorderWidth,
     boxShadow: "0px 0px 40px rgb(255, 255, 255, 30%)",
-    height: glowDiameter,
-    width: glowDiameter,
-    borderRadius: glowBorderRadius,
     pointerEvents: "none"
   },
   shadow: {
     position: "absolute",
-    top: glowBorderWidth,
-    left: glowBorderWidth,
     boxShadow: "0px 0px -40px rgb(0, 0, 0, 70%)",
-    height: glowDiameter,
-    width: glowDiameter,
-    borderRadius: glowBorderRadius,
     pointerEvents: "none"
   },
   cord: {
-    left: cordLeft,
-    top: cordTop,
     position: "absolute",
-    height: cordHeight,
     width: "1vh"
   },
   mapContainer: {
-    left: mapOffset,
-    top: mapOffset,
     position: "absolute",
-    height: mapDiameter,
-    width: mapDiameter,
-    borderRadius: mapBorderRadius,
     backgroundColor: "transparent",
     backgroundImage:
       "radial-gradient(RGB(239, 224, 223), RGB(255, 239, 205), rgb(225, 185, 141))",
