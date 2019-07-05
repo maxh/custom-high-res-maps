@@ -70,17 +70,35 @@ class MapLampPreview extends React.Component {
     }
   };
 
-  getGlowStyles = () => {
-    return {
+  render() {
+    const height = 90;
+    const border = height * borderFraction;
+    const radius = height * radiusFraction;
+
+    const lampHeight = `${height}vh`;
+
+    const frameDiameter = `${radius * 2 + border * 2}vh`;
+
+    const glowBorderWidth = `${border}vh`;
+    const glowBorderRadius = `${radius + border}vh`;
+    const glowDiameter = `${radius * 2}vh`;
+
+    const mapOffset = `${border - 5}vh`;
+    const mapDiameter = `${(radius * 2 + 10) * 2}vh`;
+    const mapBorderRadius = `${(radius + border) * 2}vh`;
+
+    const cordTop = `${height - CORD_OFFSET}vh`;
+    const cordLeft = `${height / 2}vh`;
+    const cordHeight = `${(100 - height) / 2 + CORD_OFFSET}vh`;
+
+    const glowStyles = {
       top: glowBorderWidth,
       left: glowBorderWidth,
       height: glowDiameter,
       width: glowDiameter,
       borderRadius: glowBorderRadius
     };
-  };
 
-  render() {
     return (
       <div
         className={css(styles.lamp)}
@@ -151,8 +169,8 @@ class MapLampPreview extends React.Component {
             borderRadius: glowBorderRadius
           }}
         />
-        <div className={css(styles.glow)} style={this.getGlowStyles()} />
-        <div className={css(styles.shadow)} style={this.getGlowStyles()} />
+        <div className={css(styles.glow)} style={glowStyles} />
+        <div className={css(styles.shadow)} style={glowStyles} />
       </div>
     );
   }
@@ -166,26 +184,7 @@ const BASE_HEIGHT = (BASE_RADIUS + BASE_BORDER) * 2;
 const radiusFraction = BASE_RADIUS / BASE_HEIGHT;
 const borderFraction = BASE_BORDER / BASE_HEIGHT;
 
-const height = 90;
-const border = height * borderFraction;
-const radius = height * radiusFraction;
-
-const lampHeight = `${height}vh`;
-
-const frameDiameter = `${radius * 2 + border * 2}vh`;
-
-const glowBorderWidth = `${border}vh`;
-const glowBorderRadius = `${radius + border}vh`;
-const glowDiameter = `${radius * 2}vh`;
-
-const mapOffset = `${border - 5}vh`;
-const mapDiameter = `${(radius * 2 + 10) * 2}vh`;
-const mapBorderRadius = `${(radius + border) * 2}vh`;
-
 const CORD_OFFSET = 3;
-const cordTop = `${height - CORD_OFFSET}vh`;
-const cordLeft = `${height / 2}vh`;
-const cordHeight = `${(100 - height) / 2 + CORD_OFFSET}vh`;
 
 const styles = StyleSheet.create({
   lamp: {
