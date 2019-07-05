@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontSize: "15px",
     letterSpacing: "1.4px",
+    boxShadow: "0px 0px 10px #999",
     ":hover": {
       cursor: "pointer"
     },
