@@ -149,8 +149,7 @@ const styles = StyleSheet.create({
     padding: "1em",
     paddingTop: "200px",
     "@media (max-width: 600px)": {
-      paddingTop: "100px",
-      fontSize: "24px"
+      paddingTop: "100px"
     }
   },
   button: {

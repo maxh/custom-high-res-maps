@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   model: {
     display: "flex",
     alignItems: "center",
-    flexDirection: "column",
+    flexDirection: "column-reverse",
     "@media (min-width: 700px)": {
       flexDirection: "row",
       ":nth-child(even)": {

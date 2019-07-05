@@ -20,6 +20,15 @@ h3 {
   font-family: "Libre Baskerville", serif;
 }
 
+@media (max-width: 600px) {
+  h1 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
