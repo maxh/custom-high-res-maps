@@ -20,8 +20,11 @@ export default function(props) {
         <div className={css(styles.textItem)}>
           <h2>Latest Release</h2>
           <h1>Circular Map Lamp</h1>
-          The circular map lets you select anywhere in the world to feature on
-          your map lamp.
+          <div>$500</div>
+          <p>
+            The circular map lets you select anywhere in the world to feature on
+            your map lamp.
+          </p>
         </div>
       </div>
       <div className={css(styles.model)}>
@@ -35,8 +38,11 @@ export default function(props) {
         <div className={css(styles.textItem)}>
           <h2>Original Release</h2>
           <h1>Manhattan Map Lamp</h1>
-          The hardwood Manhattan lamp is the original map design. The lamp
-          stands 24 inches tall and 10 inches wide.
+          <div>$400</div>
+          <p>
+            The hardwood Manhattan lamp is the original map design. The lamp
+            stands 24 inches tall and 10 inches wide.
+          </p>
         </div>
       </div>
     </div>
