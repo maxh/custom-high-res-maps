@@ -6,6 +6,8 @@ import Geocoder from "react-map-gl-geocoder";
 // https://www.npmjs.com/package/@react-hook/window-size
 import { useWindowSize } from "@react-hook/window-size";
 
+import { PANEL_WIDTH_PX } from "editor/Editor";
+
 import "mapbox-geocoder.css";
 
 // TODO: Use transparency instead of colors so gradient shows through.
@@ -52,8 +54,6 @@ const getFrameFinishStyle = frameFinish => {
   }
 };
 
-const PANEL_WIDTH_PX = 400;
-
 const MapLampPreview = props => {
   const mapRef = useRef(null);
   const [windowWidth, windowHeight] = useWindowSize(
@@ -68,7 +68,7 @@ const MapLampPreview = props => {
     height = 90;
   } else {
     const ratio = previewWidth / previewHeight;
-    height = 95 * ratio;
+    height = 90 * ratio;
   }
   const border = height * borderFraction;
   const radius = height * radiusFraction;
@@ -81,8 +81,8 @@ const MapLampPreview = props => {
   const glowBorderRadius = `${radius + border}vh`;
   const glowDiameter = `${radius * 2}vh`;
 
-  const mapOffset = `${border - 5}vh`;
-  const mapDiameter = `${(radius * 2 + 10) * 2}vh`;
+  const mapOffset = `${border - 2}vh`;
+  const mapDiameter = `${(radius * 2 + 4) * 2}vh`;
   const mapBorderRadius = `${(radius + border) * 2}vh`;
 
   const cordTop = `${height - CORD_OFFSET}vh`;

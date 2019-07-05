@@ -10,6 +10,8 @@ import colors from "common/colors";
 
 import Button from "common/Button";
 
+export const PANEL_WIDTH_PX = 300;
+
 function setUrlQueryString(params) {
   const searchParams = new URLSearchParams();
   Object.keys(params).forEach(key => searchParams.set(key, params[key]));
@@ -255,7 +257,7 @@ const styles = StyleSheet.create({
   formPanel: {
     padding: "20px",
     position: "relative",
-    width: "300px",
+    width: `${PANEL_WIDTH_PX}px`,
     display: "flex",
     flexDirection: "column"
   },
