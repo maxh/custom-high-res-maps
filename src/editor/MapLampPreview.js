@@ -3,7 +3,8 @@ import { StyleSheet, css } from "aphrodite";
 import ReactMapGL from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 
-import { useWindowWidth } from "@react-hook/window-size";
+// https://www.npmjs.com/package/@react-hook/window-size
+import { useWindowSize } from "@react-hook/window-size";
 
 import "mapbox-geocoder.css";
 
@@ -51,10 +52,24 @@ const getFrameFinishStyle = frameFinish => {
   }
 };
 
+const PANEL_WIDTH_PX = 400;
+
 const MapLampPreview = props => {
   const mapRef = useRef(null);
-
-  const height = 90;
+  const [windowWidth, windowHeight] = useWindowSize(
+    360 /* initialWidth when there is no window */,
+    720 /* initialHeight when there is no window */,
+    { wait: 100 }
+  );
+  const previewHeight = windowHeight;
+  const previewWidth = windowWidth - PANEL_WIDTH_PX;
+  let height;
+  if (previewWidth > previewHeight) {
+    height = 90;
+  } else {
+    const ratio = previewWidth / previewHeight;
+    height = 95 * ratio;
+  }
   const border = height * borderFraction;
   const radius = height * radiusFraction;
 
