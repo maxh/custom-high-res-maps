@@ -9,6 +9,14 @@ import { StyleSheet, css } from "aphrodite";
 
 import colors from "common/colors";
 
+const ccStyle = {
+  base: {
+    fontSize: "medium",
+    fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue"`
+  }
+};
+
 class CheckoutForm extends React.Component {
   handleSubmit = ev => {
     // We don't want to let default form submission happen here, which would refresh the page.
@@ -69,41 +77,20 @@ class CheckoutForm extends React.Component {
         </FormItem>
         <FormItem name="Card number">
           <CardNumberElement
-            style={{
-              base: {
-                fontSize: "medium",
-                fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue"`
-              }
-            }}
+            style={ccStyle}
             className={css(styles.cardInput)}
           />
         </FormItem>
         <div className={css(styles.cardMinorDetails)}>
           <FormItem name="Card expiry">
             <CardExpiryElement
-              style={{
-                base: {
-                  fontSize: "medium",
-                  fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue"`
-                }
-              }}
+              style={ccStyle}
               className={css(styles.cardInput)}
             />
           </FormItem>
           <div style={{ width: "40px" }} />
           <FormItem name="Card CVC">
-            <CardCVCElement
-              style={{
-                base: {
-                  fontSize: "medium",
-                  fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue"`
-                }
-              }}
-              className={css(styles.cardInput)}
-            />
+            <CardCVCElement style={ccStyle} className={css(styles.cardInput)} />
           </FormItem>
         </div>
         <button className={css(styles.button)}>Confirm order</button>

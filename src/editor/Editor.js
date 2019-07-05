@@ -14,13 +14,9 @@ import Button from "common/Button";
 
 import { Redirect } from "react-router";
 
-export const PANEL_WIDTH_PX = 300;
+import geoViewport from "@mapbox/geo-viewport";
 
-function setUrlQueryString(params) {
-  const searchParams = new URLSearchParams();
-  Object.keys(params).forEach(key => searchParams.set(key, params[key]));
-  return searchParams.toString();
-}
+export const PANEL_WIDTH_PX = 300;
 
 function debounce(func, wait, immediate) {
   var timeout;
@@ -44,16 +40,26 @@ function debounce(func, wait, immediate) {
   };
 }
 
+const parseBounds = boundsParam => {
+  if (!boundsParam) {
+    return undefined;
+  }
+  const parsed = boundsParam.split(",").map(parseFloat);
+  if (!parsed.every(b => typeof b === "number")) {
+    return undefined;
+  }
+  return parsed;
+};
+
 const parseUrl = queryString => {
   const params = new URLSearchParams(queryString);
   const getParam = key =>
     params.get(key) === "undefined" ? null : params.get(key);
   const findOption = (options, key) =>
     options.find(option => option.value === key);
+
   return {
-    lat: parseFloat(getParam("lat")),
-    lon: parseFloat(getParam("lon")),
-    zoom: parseFloat(getParam("zoom")),
+    bounds: parseBounds(getParam("bounds")),
     placeName: getParam("placeName"),
     density: findOption(DENSITY_OPTIONS, getParam("density")),
     theme: findOption(THEME_OPTIONS, getParam("theme")),
@@ -84,18 +90,20 @@ const CORD_COLOR_OPTIONS = [
   { value: "black", label: "Black" }
 ];
 
-const SF_LAT = 37.741955392356495;
-const SF_LON = -122.44054521089129;
-const SF_ZOOM = 12;
+const SF_BOUNDS = [
+  -122.54901035064273,
+  37.6632779986571,
+  -122.33473070007805,
+  37.832711140050684
+];
 
 class Editor extends React.Component {
   constructor(props) {
     super(props);
     const params = parseUrl(props.location.search);
     this.state = {
-      latitude: params.lat || SF_LAT,
-      longitude: params.lon || SF_LON,
-      zoom: params.zoom || SF_ZOOM,
+      viewport: { height: 0, width: 0 },
+      bounds: params.bounds || SF_BOUNDS,
       placeName: params.placeName || "",
       selectedDensity: params.density || DENSITY_OPTIONS[1],
       selectedTheme: params.theme || THEME_OPTIONS[1],
@@ -108,16 +116,15 @@ class Editor extends React.Component {
 
   updateUrl = debounce(
     () => {
-      const url = setUrlQueryString({
-        lat: this.state.latitude,
-        lon: this.state.longitude,
-        zoom: this.state.zoom,
+      const params = new URLSearchParams({
         density: this.state.selectedDensity.value,
         theme: this.state.selectedTheme.value,
         frameFinish: this.state.selectedFrameFinish.value,
         cordColor: this.state.selectedCordColor.value
       });
-      this.props.history.replace(`?${url}`);
+      // We have to do this specially so bounding box is encoded with normal commas.
+      const allParams = `bounds=${this.state.bounds.join(",")}&${params}`;
+      this.props.history.replace(`?${allParams}`);
     },
     500,
     false
@@ -128,24 +135,60 @@ class Editor extends React.Component {
     this.updateUrl();
   };
 
-  handlePlusClick = () => {
-    this.setStateAndUpdateUrl({
-      zoom: this.state.zoom + 0.5
+  updateZoom = amount => {
+    const oldZoom = this.state.viewport.zoom;
+    const newViewport = Object.assign({}, this.state.viewport, {
+      zoom: oldZoom + amount
     });
+    this.updateViewportAndBounds(newViewport);
+  };
+
+  handlePlusClick = () => {
+    this.updateZoom(0.5);
   };
 
   handleMinusClick = () => {
-    this.setStateAndUpdateUrl({
-      zoom: this.state.zoom - 0.5
-    });
+    this.updateZoom(-0.5);
   };
 
-  handleViewportChange = viewport =>
-    this.setStateAndUpdateUrl({
-      latitude: viewport.latitude,
-      longitude: viewport.longitude,
-      zoom: viewport.zoom
-    });
+  handleMapResize = (height, width) => {
+    const {
+      center: [longitude, latitude],
+      zoom
+    } = geoViewport.viewport(
+      this.state.bounds,
+      [height, width],
+      0,
+      26,
+      512,
+      true
+    );
+    const viewport = { height, width, longitude, latitude, zoom };
+    this.setState({ viewport });
+  };
+
+  handleViewportChange = viewport => {
+    const { height, width } = viewport;
+    const oldHeight = this.state.viewport.height;
+    const isFirstTimeLoad = height && !oldHeight;
+    const isWindowResize = height && oldHeight && height !== oldHeight;
+    if (isFirstTimeLoad || isWindowResize) {
+      this.handleMapResize(height, width);
+      return;
+    }
+    this.updateViewportAndBounds(viewport);
+  };
+
+  updateViewportAndBounds = viewport => {
+    const { height, width, latitude, longitude, zoom } = viewport;
+    const bounds = geoViewport.bounds(
+      [longitude, latitude],
+      zoom,
+      [width, height],
+      512
+    );
+    this.setStateAndUpdateUrl({ viewport, bounds });
+  };
 
   handleSearchResult = () => {
     // We only need the hardcoded search result for when you initially
@@ -170,6 +213,9 @@ class Editor extends React.Component {
     if (this.state.checkout) {
       return <Redirect push to={`/checkout`} />;
     }
+
+    let { longitude, latitude, zoom } = this.state.viewport;
+
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.previewPanel)}>
@@ -182,11 +228,11 @@ class Editor extends React.Component {
             geocoderContainerRef={this.geocoderContainerRef}
             frameFinish={this.state.selectedFrameFinish.value}
             cordColor={this.state.selectedCordColor.value}
-            latitude={this.state.latitude}
-            longitude={this.state.longitude}
+            latitude={latitude}
+            longitude={longitude}
+            zoom={zoom}
             density={this.state.selectedDensity.value}
             theme={this.state.selectedTheme.value}
-            zoom={this.state.zoom}
             placeName={this.state.placeName}
             onViewportChange={this.handleViewportChange}
             onSearchResult={this.handleSearchResult}
