@@ -177,6 +177,8 @@ class Editor extends React.Component {
             cordColor={this.state.selectedCordColor}
             latitude={this.state.latitude}
             longitude={this.state.longitude}
+            density={this.state.selectedDensity.value}
+            theme={this.state.selectedTheme.value}
             zoom={this.state.zoom}
             placeName={this.state.placeName}
             onViewportChange={this.handleViewportChange}

@@ -5,6 +5,25 @@ import Geocoder from "react-map-gl-geocoder";
 
 import "mapbox-geocoder.css";
 
+const DARK_STYLES = {
+  none: "mapbox://styles/maplamps/cjxpiw8rv1efk1cp6nkd9ur8e",
+  low: "mapbox://styles/maplamps/cjxpiw5av1nb51clghg7kp1c2",
+  medium: "mapbox://styles/maplamps/cjxpiw2aj4ne31cnrgq6y5ujt",
+  high: "mapbox://styles/maplamps/cjxpflw074kec1cmb8q35ab9z"
+};
+
+const LIGHT_STYLES = {
+  none: "mapbox://styles/maplamps/cjxpcn17t4hol1cnuq3dqfaak",
+  low: "mapbox://styles/maplamps/cjxpckpdf3p4y1cmkn8ku44wk",
+  medium: "mapbox://styles/maplamps/cjxpckkau4hxf1cp6k3ld2w5v",
+  high: "mapbox://styles/maplamps/cjwe768gw1jkc1cq92843klrh"
+};
+
+const MAP_STYLES = {
+  light: LIGHT_STYLES,
+  dark: DARK_STYLES
+};
+
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFwbGFtcHMiLCJhIjoiY2p3NmNoYmYzMGlmcTRhcWsycXNma3NqNSJ9.RBpqn0qnposf4cWpkUsq_g";
 
@@ -61,7 +80,7 @@ class MapLampPreview extends React.Component {
             width="100%"
             height="100%"
             mapboxApiAccessToken={MAPBOX_TOKEN}
-            mapStyle="mapbox://styles/maplamps/cjwe768gw1jkc1cq92843klrh"
+            mapStyle={MAP_STYLES[this.props.theme][this.props.density]}
             onViewportChange={this.props.onViewportChange}
             attributionControl={false}
           >
