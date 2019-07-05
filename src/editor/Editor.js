@@ -169,10 +169,6 @@ class Editor extends React.Component {
               Map Lamps
             </a>
           </h1>
-          <MapZoomControl
-            onPlusClick={this.handlePlusClick}
-            onMinusClick={this.handleMinusClick}
-          />
           <MapLampPreview
             geocoderContainerRef={this.geocoderContainerRef}
             frameFinish={this.state.selectedFrameFinish.value}
@@ -185,6 +181,10 @@ class Editor extends React.Component {
             placeName={this.state.placeName}
             onViewportChange={this.handleViewportChange}
             onSearchResult={this.handleSearchResult}
+          />
+          <MapZoomControl
+            onPlusClick={this.handlePlusClick}
+            onMinusClick={this.handleMinusClick}
           />
         </div>
         <div className={css(styles.formPanel)}>
