@@ -180,6 +180,9 @@ class Editor extends React.Component {
   };
 
   updateViewportAndBounds = viewport => {
+    // This is needed because no height or width is provided when
+    // changing map after geocoder lookup.
+    viewport = Object.assign({}, this.state.viewport, viewport);
     const { height, width, latitude, longitude, zoom } = viewport;
     const bounds = geoViewport.bounds(
       [longitude, latitude],
