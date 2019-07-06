@@ -38,7 +38,10 @@ class CheckoutForm extends React.Component {
     // See our handleCardPayment documentation for more:
     // https://stripe.com/docs/stripe-js/reference#stripe-handle-card-payment
     const data = {};
-    this.props.stripe.handleCardPayment("{PAYMENT_INTENT_CLIENT_SECRET}", data);
+    this.props.stripe.handleCardPayment(
+      "pk_test_DqNL2sGDI9mlzq99gvokk2po00TdSQD5Lw",
+      data
+    );
 
     // You can also use createToken to create tokens.
     // See our tokens documentation for more:

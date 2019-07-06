@@ -6,6 +6,13 @@ import { Elements } from "react-stripe-elements";
 import colors from "common/colors";
 
 import CheckoutForm from "checkout/CheckoutForm";
+import CircularMapPreview from "checkout/CircularMapPreview";
+
+import Preview from "checkout/Preview";
+
+import geoViewport from "@mapbox/geo-viewport";
+
+import CartManager from "common/CartManager";
 
 class Checkout extends React.Component {
   goBack = () => {
@@ -13,6 +20,7 @@ class Checkout extends React.Component {
   };
 
   render() {
+    const config = CartManager.getCircularConfig();
     return (
       <div className={css(styles.page)}>
         <div className={css(styles.innerPage)}>
@@ -30,7 +38,9 @@ class Checkout extends React.Component {
             <Elements>
               <CheckoutForm />
             </Elements>
-            <div className={css(styles.preview)}>Preview</div>
+            <div className={css(styles.preview)}>
+              <CircularMapPreview />
+            </div>
           </div>
         </div>
       </div>

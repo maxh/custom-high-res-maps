@@ -7,6 +7,7 @@ import FormItem from "editor/FormItem";
 
 import FormSelect from "editor/FormSelect";
 import colors from "common/colors";
+import CartManager from "common/CartManager";
 
 import "./geocoder-overrides.css";
 
@@ -114,25 +115,45 @@ class Editor extends React.Component {
 
   geocoderContainerRef = React.createRef();
 
-  updateUrl = debounce(
+  persistStateDebounced = debounce(
     () => {
-      const params = new URLSearchParams({
-        density: this.state.selectedDensity.value,
-        theme: this.state.selectedTheme.value,
-        frameFinish: this.state.selectedFrameFinish.value,
-        cordColor: this.state.selectedCordColor.value
-      });
-      // We have to do this specially so bounding box is encoded with normal commas.
-      const allParams = `bounds=${this.state.bounds.join(",")}&${params}`;
-      this.props.history.replace(`?${allParams}`);
+      this.updateUrl();
+      this.updateLocalStorage();
     },
     500,
     false
   );
 
-  setStateAndUpdateUrl = newState => {
+  updateLocalStorage = () => {
+    const viewport = Object.assign({}, this.state.viewport);
+    delete viewport.transitionDuration;
+    delete viewport.transitionInterpolator;
+    delete viewport.transitionInterruption;
+    CartManager.setCircularConfig({
+      density: this.state.selectedDensity,
+      theme: this.state.selectedTheme,
+      frameFinish: this.state.selectedFrameFinish,
+      cordColor: this.state.selectedCordColor,
+      bounds: this.state.bounds,
+      viewport
+    });
+  };
+
+  updateUrl = () => {
+    const params = new URLSearchParams({
+      density: this.state.selectedDensity.value,
+      theme: this.state.selectedTheme.value,
+      frameFinish: this.state.selectedFrameFinish.value,
+      cordColor: this.state.selectedCordColor.value
+    });
+    // We have to do this specially so bounding box is encoded with normal commas.
+    const allParams = `bounds=${this.state.bounds.join(",")}&${params}`;
+    this.props.history.replace(`?${allParams}`);
+  };
+
+  setAndPersistState = newState => {
     this.setState(newState);
-    this.updateUrl();
+    this.persistStateDebounced();
   };
 
   updateZoom = amount => {
@@ -190,7 +211,7 @@ class Editor extends React.Component {
       [width, height],
       512
     );
-    this.setStateAndUpdateUrl({ viewport, bounds });
+    this.setAndPersistState({ viewport, bounds });
   };
 
   handleSearchResult = () => {
@@ -202,13 +223,13 @@ class Editor extends React.Component {
   };
 
   handleDensitySelect = selectedDensity =>
-    this.setStateAndUpdateUrl({ selectedDensity });
+    this.setAndPersistState({ selectedDensity });
   handleThemeSelect = selectedTheme =>
-    this.setStateAndUpdateUrl({ selectedTheme });
+    this.setAndPersistState({ selectedTheme });
   handleFrameFinishSelect = selectedFrameFinish =>
-    this.setStateAndUpdateUrl({ selectedFrameFinish });
+    this.setAndPersistState({ selectedFrameFinish });
   handleCordColorSelect = selectedCordColor =>
-    this.setStateAndUpdateUrl({ selectedCordColor });
+    this.setAndPersistState({ selectedCordColor });
 
   handleNextClick = () => this.setState({ checkout: true });
 
