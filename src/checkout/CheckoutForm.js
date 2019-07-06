@@ -65,63 +65,74 @@ class CheckoutForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className={css(styles.form)}>
-        <h1>Billing information</h1>
-        <div>
-          <FormItem name="Cardholder name">
-            <input className={css(styles.formInput)} />
-          </FormItem>
-          <FormItem name="Card number">
-            <CardNumberElement
-              style={ccStyle}
-              className={css(styles.cardInput)}
-            />
-          </FormItem>
-          <div className={css(styles.cardMinorDetails)}>
-            <FormItem name="Card expiry">
-              <CardExpiryElement
-                style={ccStyle}
-                className={css(styles.cardInput)}
-              />
+      <div className={css(styles.page)}>
+        <h1 className={css(styles.header)}>
+          <a href="/" className={css(styles.headerLink)}>
+            Map Lamps
+          </a>
+        </h1>
+        <form onSubmit={this.handleSubmit} className={css(styles.form)}>
+          <div>
+            <h1>Checkout</h1>
+            <FormItem name="Email address">
+              <input className={css(styles.formInput)} />
             </FormItem>
-            <div style={{ width: "40px" }} />
-            <FormItem name="Card CVC">
-              <CardCVCElement
-                style={ccStyle}
-                className={css(styles.cardInput)}
+            <h2>Shipping address</h2>
+            <AddressForm />
+            <h2>Billing information</h2>
+            <label>
+              <input
+                name="isBillingAddressSame"
+                type="checkbox"
+                checked={this.state.isBillingAddressSame}
+                onChange={this.handleCheckboxChange}
               />
+              Billing address is the same as shipping address
+            </label>
+            <div
+              style={{
+                display: this.state.isBillingAddressSame ? "none" : "block"
+              }}
+            >
+              <h3>Billing address</h3>
+              <AddressForm />
+            </div>
+            <h3>Card details</h3>
+            <FormItem name="Name on card">
+              <input className={css(styles.formInput)} />
             </FormItem>
+            <FormItem name="Card number">
+              <div className={css(styles.ccWrapper)}>
+                <CardNumberElement
+                  style={ccStyle}
+                  className={css(styles.cardInput)}
+                />
+              </div>
+            </FormItem>
+            <div className={css(styles.cardMinorDetails)}>
+              <FormItem name="Card expiry">
+                <div className={css(styles.ccDetailWrapper)}>
+                  <CardExpiryElement
+                    style={ccStyle}
+                    className={css(styles.cardInput)}
+                  />
+                </div>
+              </FormItem>
+              <div style={{ width: "20px" }} />
+              <FormItem name="Card CVC">
+                <div className={css(styles.ccDetailWrapper)}>
+                  <CardCVCElement
+                    style={ccStyle}
+                    className={css(styles.cardInput)}
+                  />
+                </div>
+              </FormItem>
+            </div>
           </div>
-          <label>
-            <input
-              name="isBillingAddressSame"
-              type="checkbox"
-              checked={this.state.isBillingAddressSame}
-              onChange={this.handleCheckboxChange}
-            />
-            Billing address is the same as shipping address
-          </label>
-          <FormItem name="Street address (line 1)">
-            <input className={css(styles.formInput)} />
-          </FormItem>
-          <FormItem name="Street address (line 2)">
-            <input className={css(styles.formInput)} />
-          </FormItem>
-          <FormItem name="City">
-            <input className={css(styles.formInput)} />
-          </FormItem>
-          <FormItem name="State / Province">
-            <input className={css(styles.formInput)} />
-          </FormItem>
-          <FormItem name="ZIP / Postal Code">
-            <input className={css(styles.formInput)} />
-          </FormItem>
-          <FormItem name="Country">
-            <input className={css(styles.formInput)} />
-          </FormItem>
-        </div>
-        <button className={css(styles.button)}>Confirm order</button>
-      </form>
+          <button className={css(styles.button)}>Confirm order</button>
+        </form>
+        <div className={css(styles.preview)}>Preview</div>
+      </div>
     );
   }
 }
@@ -129,18 +140,50 @@ class CheckoutForm extends React.Component {
 export default injectStripe(CheckoutForm);
 
 const styles = StyleSheet.create({
+  preview: {
+    width: "100px",
+    height: "100px",
+    marginLeft: "50px",
+    background: "yellow",
+    position: "sticky",
+    top: "20px"
+  },
+  header: {
+    position: "absolute",
+    top: "20px",
+    left: "20px",
+    margin: 0,
+    cursor: "pointer",
+    "@media (max-width: 800px)": {
+      fontSize: "18px"
+    },
+    "@media (max-width: 400px)": {
+      fontSize: "12px"
+    }
+  },
+  headerLink: {
+    color: "black",
+    textDecoration: "none",
+    cursor: "pointer"
+  },
+  page: {
+    padding: "20px",
+    background: colors.selectedGray,
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center"
+  },
   cardMinorDetails: {
     display: "flex",
     justifyContent: "space-between"
-  },
-  button: {
-    marginTop: "20px"
   },
   form: {
     display: "flex",
     flexDirection: "column",
     width: "400px",
-    padding: "20px"
+    padding: "20px",
+    background: "white"
   },
   cardInput: {
     height: "20px",
@@ -152,7 +195,14 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: "1px"
   },
+  ccWrapper: {
+    width: "266px"
+  },
+  ccDetailWrapper: {
+    width: "100px"
+  },
   formInput: {
+    width: "240px",
     height: "20px",
     fontSize: "medium",
     lineHeight: "24px",
@@ -170,6 +220,29 @@ const styles = StyleSheet.create({
   formLabel: {
     display: "inline-block",
     marginBottom: "5px"
+  },
+  button: {
+    marginTop: "20px",
+    backgroundColor: "#447AB1",
+    color: "white",
+    fontWeight: "bold",
+    height: "50px",
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "6px 20px",
+    userSelect: "none",
+    textTransform: "uppercase",
+    fontSize: "15px",
+    letterSpacing: "1.4px",
+    ":hover": {
+      cursor: "pointer"
+    },
+    ":active": {
+      cursor: "pointer"
+    },
+    ":focus": { outline: 0 }
   }
 });
 
@@ -182,9 +255,11 @@ const FormItem = ({ name, children }) => (
 
 const formItemStyles = StyleSheet.create({
   formItem: {
-    marginTop: "30px",
+    marginTop: "15px",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     flex: 1
   },
   formLabel: {
@@ -192,3 +267,34 @@ const formItemStyles = StyleSheet.create({
     marginBottom: "5px"
   }
 });
+
+const AddressForm = () => {
+  return (
+    <div>
+      <FormItem name="Name">
+        <input className={css(styles.formInput)} />
+      </FormItem>
+      <FormItem name="Phone number">
+        <input className={css(styles.formInput)} />
+      </FormItem>
+      <FormItem name="Street address">
+        <input className={css(styles.formInput)} />
+      </FormItem>
+      <FormItem name="">
+        <input className={css(styles.formInput)} />
+      </FormItem>
+      <FormItem name="City">
+        <input className={css(styles.formInput)} />
+      </FormItem>
+      <FormItem name="State / Province">
+        <input className={css(styles.formInput)} />
+      </FormItem>
+      <FormItem name="ZIP / Postal Code">
+        <input className={css(styles.formInput)} />
+      </FormItem>
+      <FormItem name="Country">
+        <input className={css(styles.formInput)} />
+      </FormItem>
+    </div>
+  );
+};
