@@ -9,8 +9,6 @@ import { StyleSheet, css } from "aphrodite";
 
 import colors from "common/colors";
 
-import { withRouter } from "react-router-dom";
-
 const ccStyle = {
   base: {
     fontSize: "medium",
@@ -65,139 +63,79 @@ class CheckoutForm extends React.Component {
     this.setState({ isBillingAddressSame: event.target.checked });
   };
 
-  goBack = () => {
-    this.props.history.goBack();
-  };
-
   render() {
     return (
-      <div className={css(styles.page)}>
-        <div className={css(styles.innerPage)}>
-          <div className={css(styles.header)}>
-            <h1 className={css(styles.headerTitle)}>
-              <a href="/" className={css(styles.headerLink)}>
-                Map Lamps
-              </a>
-            </h1>
-            <div onClick={this.goBack} className={css(styles.headerLink)}>
-              ← Return to editor
-            </div>
+      <form onSubmit={this.handleSubmit} className={css(styles.form)}>
+        <div>
+          <h2>Checkout</h2>
+          <FormItem name="Email address">
+            <input className={css(styles.formInput)} />
+          </FormItem>
+          <h3>Shipping information</h3>
+          <AddressForm />
+          <h3>Billing information</h3>
+          <label>
+            <input
+              name="isBillingAddressSame"
+              type="checkbox"
+              checked={this.state.isBillingAddressSame}
+              onChange={this.handleCheckboxChange}
+            />
+            Billing address is the same as shipping address
+          </label>
+          <div
+            style={{
+              display: this.state.isBillingAddressSame ? "none" : "block"
+            }}
+          >
+            <h4>Billing address</h4>
+            <AddressForm />
           </div>
-          <div className={css(styles.lowerInnerPage)}>
-            <form onSubmit={this.handleSubmit} className={css(styles.form)}>
-              <div>
-                <h2>Checkout</h2>
-                <FormItem name="Email address">
-                  <input className={css(styles.formInput)} />
-                </FormItem>
-                <h3>Shipping information</h3>
-                <AddressForm />
-                <h3>Billing information</h3>
-                <label>
-                  <input
-                    name="isBillingAddressSame"
-                    type="checkbox"
-                    checked={this.state.isBillingAddressSame}
-                    onChange={this.handleCheckboxChange}
-                  />
-                  Billing address is the same as shipping address
-                </label>
-                <div
-                  style={{
-                    display: this.state.isBillingAddressSame ? "none" : "block"
-                  }}
-                >
-                  <h4>Billing address</h4>
-                  <AddressForm />
-                </div>
-                <h4>Card details</h4>
-                <p className={css(styles.hint)}>
-                  SSL Secured & Encrypted payment
-                </p>
-                <FormItem name="Name on card">
-                  <input className={css(styles.formInput)} />
-                </FormItem>
-                <FormItem name="Card number">
-                  <div className={css(styles.ccWrapper)}>
-                    <CardNumberElement
-                      style={ccStyle}
-                      className={css(styles.cardInput)}
-                    />
-                  </div>
-                </FormItem>
-                <div className={css(styles.cardMinorDetails)}>
-                  <FormItem name="Card expiry">
-                    <div className={css(styles.ccDetailWrapper)}>
-                      <CardExpiryElement
-                        style={ccStyle}
-                        className={css(styles.cardInput)}
-                      />
-                    </div>
-                  </FormItem>
-                  <div style={{ width: "20px" }} />
-                  <FormItem name="Card CVC">
-                    <div className={css(styles.ccDetailWrapper)}>
-                      <CardCVCElement
-                        style={ccStyle}
-                        className={css(styles.cardInput)}
-                      />
-                    </div>
-                  </FormItem>
-                </div>
+          <h4>Card details</h4>
+          <p className={css(styles.hint)}>SSL Secured & Encrypted payment</p>
+          <FormItem name="Name on card">
+            <input className={css(styles.formInput)} />
+          </FormItem>
+          <FormItem name="Card number">
+            <div className={css(styles.ccWrapper)}>
+              <CardNumberElement
+                style={ccStyle}
+                className={css(styles.cardInput)}
+              />
+            </div>
+          </FormItem>
+          <div className={css(styles.cardMinorDetails)}>
+            <FormItem name="Card expiry">
+              <div className={css(styles.ccDetailWrapper)}>
+                <CardExpiryElement
+                  style={ccStyle}
+                  className={css(styles.cardInput)}
+                />
               </div>
-              <button className={css(styles.button)}>Confirm order</button>
-            </form>
-            <div className={css(styles.preview)}>Preview</div>
+            </FormItem>
+            <div style={{ width: "20px" }} />
+            <FormItem name="Card CVC">
+              <div className={css(styles.ccDetailWrapper)}>
+                <CardCVCElement
+                  style={ccStyle}
+                  className={css(styles.cardInput)}
+                />
+              </div>
+            </FormItem>
           </div>
         </div>
-      </div>
+        <button className={css(styles.button)}>Confirm order</button>
+      </form>
     );
   }
 }
 
-export default withRouter(injectStripe(CheckoutForm));
+export default injectStripe(CheckoutForm);
 
 const styles = StyleSheet.create({
-  preview: {
-    width: "200px",
-    height: "200px",
-    marginLeft: "50px",
-    background: "yellow",
-    position: "sticky",
-    top: "20px"
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  headerTitle: {
-    cursor: "pointer"
-  },
-  headerLink: {
-    color: "black",
-    textDecoration: "none",
-    cursor: "pointer"
-  },
   hint: {
     color: colors.defaultGray,
     fontSize: "small"
-  },
-  page: {
-    padding: "20px",
-    background: colors.selectedGray,
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center"
-  },
-  innerPage: {
-    display: "flex",
-    flexDirection: "column"
-  },
-  lowerInnerPage: {
-    display: "flex",
-    flexDirection: "row"
   },
   cardMinorDetails: {
     display: "flex",
