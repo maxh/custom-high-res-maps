@@ -95,7 +95,7 @@ class CheckoutForm extends React.Component {
             <AddressForm />
           </div>
           <h4>Card details</h4>
-          <p className={css(styles.hint)}>SSL Secured & Encrypted payment</p>
+          <p className={css(styles.hint)}>SSL Secured & Encrypted</p>
           <FormItem name="Name on card">
             <input className={css(styles.formInput)} />
           </FormItem>
@@ -137,7 +137,7 @@ export default injectStripe(CheckoutForm);
 
 const styles = StyleSheet.create({
   hint: {
-    color: colors.defaultGray,
+    color: "gray",
     fontSize: "small"
   },
   cardMinorDetails: {
