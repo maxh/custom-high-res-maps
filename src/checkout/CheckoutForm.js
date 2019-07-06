@@ -111,6 +111,9 @@ class CheckoutForm extends React.Component {
                   <AddressForm />
                 </div>
                 <h4>Card details</h4>
+                <p className={css(styles.hint)}>
+                  SSL Secured & Encrypted payment
+                </p>
                 <FormItem name="Name on card">
                   <input className={css(styles.formInput)} />
                 </FormItem>
@@ -175,6 +178,10 @@ const styles = StyleSheet.create({
     color: "black",
     textDecoration: "none",
     cursor: "pointer"
+  },
+  hint: {
+    color: colors.defaultGray,
+    fontSize: "small"
   },
   page: {
     padding: "20px",
