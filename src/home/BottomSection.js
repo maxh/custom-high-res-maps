@@ -18,6 +18,7 @@ class BottomSection extends React.Component {
           />
         </div>
         <div className={css(styles.search)}>
+          <h1 className={css(styles.ready)}>Ready to create your map lamp?</h1>
           <Search />
           <Footer />
         </div>
@@ -55,5 +56,6 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
+  ready: { textAlign: "center" }
 });

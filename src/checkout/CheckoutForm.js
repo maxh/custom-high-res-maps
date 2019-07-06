@@ -18,6 +18,8 @@ const ccStyle = {
 };
 
 class CheckoutForm extends React.Component {
+  state = { isBillingAddressSame: true };
+
   handleSubmit = ev => {
     // We don't want to let default form submission happen here, which would refresh the page.
     ev.preventDefault();
@@ -57,40 +59,65 @@ class CheckoutForm extends React.Component {
     });
   };
 
+  handleCheckboxChange = event => {
+    this.setState({ isBillingAddressSame: event.target.checked });
+  };
+
   render() {
     return (
       <form onSubmit={this.handleSubmit} className={css(styles.form)}>
-        <FormItem name="Street address (line 1)">
-          <input className={css(styles.formInput)} />
-        </FormItem>
-        <FormItem name="Street address (line 2)">
-          <input className={css(styles.formInput)} />
-        </FormItem>
-        <FormItem name="City">
-          <input className={css(styles.formInput)} />
-        </FormItem>
-        <FormItem name="State / Province">
-          <input className={css(styles.formInput)} />
-        </FormItem>
-        <FormItem name="ZIP / Postal Code">
-          <input className={css(styles.formInput)} />
-        </FormItem>
-        <FormItem name="Card number">
-          <CardNumberElement
-            style={ccStyle}
-            className={css(styles.cardInput)}
-          />
-        </FormItem>
-        <div className={css(styles.cardMinorDetails)}>
-          <FormItem name="Card expiry">
-            <CardExpiryElement
+        <h1>Billing information</h1>
+        <div>
+          <FormItem name="Cardholder name">
+            <input className={css(styles.formInput)} />
+          </FormItem>
+          <FormItem name="Card number">
+            <CardNumberElement
               style={ccStyle}
               className={css(styles.cardInput)}
             />
           </FormItem>
-          <div style={{ width: "40px" }} />
-          <FormItem name="Card CVC">
-            <CardCVCElement style={ccStyle} className={css(styles.cardInput)} />
+          <div className={css(styles.cardMinorDetails)}>
+            <FormItem name="Card expiry">
+              <CardExpiryElement
+                style={ccStyle}
+                className={css(styles.cardInput)}
+              />
+            </FormItem>
+            <div style={{ width: "40px" }} />
+            <FormItem name="Card CVC">
+              <CardCVCElement
+                style={ccStyle}
+                className={css(styles.cardInput)}
+              />
+            </FormItem>
+          </div>
+          <label>
+            <input
+              name="isBillingAddressSame"
+              type="checkbox"
+              checked={this.state.isBillingAddressSame}
+              onChange={this.handleCheckboxChange}
+            />
+            Billing address is the same as shipping address
+          </label>
+          <FormItem name="Street address (line 1)">
+            <input className={css(styles.formInput)} />
+          </FormItem>
+          <FormItem name="Street address (line 2)">
+            <input className={css(styles.formInput)} />
+          </FormItem>
+          <FormItem name="City">
+            <input className={css(styles.formInput)} />
+          </FormItem>
+          <FormItem name="State / Province">
+            <input className={css(styles.formInput)} />
+          </FormItem>
+          <FormItem name="ZIP / Postal Code">
+            <input className={css(styles.formInput)} />
+          </FormItem>
+          <FormItem name="Country">
+            <input className={css(styles.formInput)} />
           </FormItem>
         </div>
         <button className={css(styles.button)}>Confirm order</button>

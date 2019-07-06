@@ -136,7 +136,7 @@ const MapLampPreview = props => {
           onViewportChange={props.onViewportChange}
           attributionControl={false}
         >
-          {mapRef ? (
+          {mapRef && props.geocoderContainerRef ? (
             <Geocoder
               enableEventLogging={false}
               mapRef={mapRef}

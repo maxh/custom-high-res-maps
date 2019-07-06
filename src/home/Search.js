@@ -10,9 +10,6 @@ import "./geocoder-overrides.css";
 
 import geoViewport from "@mapbox/geo-viewport";
 
-const MAPBOX_TOKEN =
-  "pk.eyJ1IjoibWFwbGFtcHMiLCJhIjoiY2p3NmNoYmYzMGlmcTRhcWsycXNma3NqNSJ9.RBpqn0qnposf4cWpkUsq_g";
-
 const MAP_SETTINGS = {
   dragPan: true,
   dragRotate: false,
@@ -24,38 +21,35 @@ const MAP_SETTINGS = {
   pitchWithRotate: false
 };
 
-class BottomSection extends React.Component {
+const MAPBOX_TOKEN =
+  "pk.eyJ1IjoibWFwbGFtcHMiLCJhIjoiY2p3NmNoYmYzMGlmcTRhcWsycXNma3NqNSJ9.RBpqn0qnposf4cWpkUsq_g";
+
+class Search extends React.Component {
   mapRef = React.createRef();
   geocoderContainerRef = React.createRef();
-  state = { lon: 0, lat: 0, zoom: 0, placeName: "", launch: false };
+  state = { bounds: [], placeName: "", launch: false };
 
   handleClick = () => {
     this.setState({ launch: true });
   };
 
   handleResult = ({ result }) => {
-    console.log(result);
     const { bbox, place_name } = result;
-    const {
-      center: [lon, lat],
-      zoom
-    } = geoViewport.viewport(bbox, [800, 800], 0, 26, 512);
-    this.setState({ lon, lat, zoom, placeName: place_name, launch: true });
+    this.setState({ bounds: bbox, placeName: place_name, launch: true });
   };
 
   render() {
     if (this.state.launch) {
-      const { lat, lon, zoom, placeName } = this.state;
+      const { bounds, placeName } = this.state;
       return (
         <Redirect
           push
-          to={`/editor?lat=${lat}&lon=${lon}&zoom=${zoom}&placeName=${placeName}`}
+          to={`/editor?bounds=${bounds.join(",")}&placeName=${placeName}`}
         />
       );
     }
     return (
       <div className={css(styles.container)}>
-        <h1 className={css(styles.ready)}>Ready to create your map lamp?</h1>
         <div className={[css(styles.launch), "home-search-section"].join(" ")}>
           <div ref={this.geocoderContainerRef} />
           <button className={css(styles.button)} onClick={this.handleClick}>
@@ -89,15 +83,11 @@ class BottomSection extends React.Component {
   }
 }
 
-export default BottomSection;
+export default Search;
 
 const styles = StyleSheet.create({
-  container: {
-    position: "relative",
-    overflow: "hidden",
-    textAlign: "center"
-  },
   search: {
+    position: "relative",
     flexDirection: "column",
     width: "100vw",
     display: "flex",
