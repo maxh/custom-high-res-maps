@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
     height: "200px",
     width: "200px",
     borderRadius: "100px",
-    background: "rgb(255, 239, 205)"
+    background:
+      "radial-gradient(RGB(239, 224, 223), rgb(255, 239, 205), rgb(225, 185, 141))"
   },
   configTable: {
     marginTop: "20px",

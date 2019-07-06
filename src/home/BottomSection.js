@@ -22,6 +22,9 @@ class BottomSection extends React.Component {
           <Search />
           <Footer />
         </div>
+        <div className={css(styles.copyright)}>
+          Map data © OpenStreetMap contributors
+        </div>
       </div>
     );
   }
@@ -30,6 +33,14 @@ class BottomSection extends React.Component {
 export default BottomSection;
 
 const styles = StyleSheet.create({
+  copyright: {
+    position: "absolute",
+    fontSize: "small",
+    bottom: "5px",
+    left: "5px",
+    background: "white",
+    padding: "2px"
+  },
   container: {
     position: "relative",
     overflow: "hidden"
