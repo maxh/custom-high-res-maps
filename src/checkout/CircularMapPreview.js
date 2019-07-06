@@ -16,12 +16,13 @@ import CartManager from "common/CartManager";
 import { MAPBOX_TOKEN, getMapboxStyle } from "config/mapbox.js";
 
 const getPreviewUrl = config => {
+  const height = 1200;
   const {
     center: [lon, lat],
     zoom
-  } = geoViewport.viewport(config.bounds, [600, 600], 0, 26, 512, true);
+  } = geoViewport.viewport(config.bounds, [height, height], 0, 26, 512, true);
   const style = getMapboxStyle(config.density.value, config.theme.value);
-  return `https://api.mapbox.com/styles/v1/${style}/static/${lon},${lat},${zoom},0/600x600?access_token=${MAPBOX_TOKEN}`;
+  return `https://api.mapbox.com/styles/v1/${style}/static/${lon},${lat},${zoom},0/${height}x${height}?access_token=${MAPBOX_TOKEN}`;
 };
 
 class CircularMapPreview extends React.Component {

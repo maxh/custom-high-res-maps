@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     height: "50px",
-    borderColor: "#000",
+    borderColor: "#888",
     borderStyle: "solid",
     borderLeftWidth: 0,
     position: "relative",

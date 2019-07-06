@@ -43,6 +43,9 @@ class Checkout extends React.Component {
             </div>
           </div>
         </div>
+        <div className={css(styles.copyright)}>
+          Preview map © Mapbox © OpenStreetMap
+        </div>
       </div>
     );
   }
@@ -51,6 +54,13 @@ class Checkout extends React.Component {
 export default Checkout;
 
 const styles = StyleSheet.create({
+  copyright: {
+    position: "fixed",
+    fontSize: "small",
+    color: "gray",
+    bottom: "5px",
+    right: "5px"
+  },
   checkout: {
     display: "flex"
   },

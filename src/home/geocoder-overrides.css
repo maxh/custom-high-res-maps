@@ -1,5 +1,5 @@
 .home-search-section .mapboxgl-ctrl-geocoder {
-  border-color: #000;
+  border-color: #888;
   border-style: solid;
   border-radius: 0;
   border-right-width: 0;
@@ -10,7 +10,7 @@
   font-size: 15px;
   line-height: 20px;
   width: 360px !important;
-  box-shadow: 0px 0px 10px #999;
+  box-shadow: 0px 0px 10px #aaa;
 }
 
 @media (max-width: 600px) {

@@ -26,7 +26,7 @@ export default function(props) {
           <h2 className={css(styles.detailTitle)}>Quality finish</h2>
           <div className={css(styles.detailDescription)}>
             Frame options include baltic birch, hardwood, and smooth matte
-            black. The maps are printed at high resolution in the United States.
+            black. The maps are printed at high resolution on durable panels.
           </div>
         </div>
         <div className={css(styles.detail)}>

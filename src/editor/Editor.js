@@ -265,6 +265,7 @@ class Editor extends React.Component {
             onPlusClick={this.handlePlusClick}
             onMinusClick={this.handleMinusClick}
           />
+          <div className={css(styles.copyright)}>© Mapbox © OpenStreetMap</div>
         </div>
         <div className={css(styles.formPanel)}>
           <div className={css(styles.formPanelInner)}>
@@ -326,6 +327,17 @@ export default Editor;
 // </FormItem>
 
 const styles = StyleSheet.create({
+  copyright: {
+    position: "absolute",
+    fontSize: "small",
+    color: "gray",
+    bottom: "5px",
+    left: "5px",
+    "@media (max-width: 800px)": {
+      left: "auto",
+      right: "5px"
+    }
+  },
   notes: {
     fontSize: "medium",
     padding: "6px",

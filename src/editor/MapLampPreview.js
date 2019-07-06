@@ -183,7 +183,8 @@ const styles = StyleSheet.create({
   frameShadow: {
     position: "absolute",
     boxShadow: "0px 0px 40px rgb(0, 0, 0, 5 0%)",
-    pointerEvents: "none"
+    pointerEvents: "none",
+    zIndex: "30"
   },
   frameBackground: {
     position: "absolute",
@@ -198,11 +199,13 @@ const styles = StyleSheet.create({
     clipPath: "url(#donut-path)"
   },
   glow: {
+    zIndex: "30",
     position: "absolute",
     boxShadow: "0px 0px 40px rgb(255, 255, 255, 30%)",
     pointerEvents: "none"
   },
   shadow: {
+    zIndex: "30",
     position: "absolute",
     boxShadow: "0px 0px -40px rgb(0, 0, 0, 70%)",
     pointerEvents: "none"
