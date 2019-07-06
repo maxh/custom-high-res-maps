@@ -10,30 +10,7 @@ import { PANEL_WIDTH_PX } from "editor/Editor";
 
 import "mapbox-geocoder.css";
 
-// TODO: Use transparency instead of colors so gradient shows through.
-// Maybe with somekind of manual per-pixel transformation in the
-// Mapbox WebGL layer, after Mapbox renders but before frame is shown?
-const DARK_STYLES = {
-  none: "mapbox://styles/maplamps/cjxpiw8rv1efk1cp6nkd9ur8e",
-  low: "mapbox://styles/maplamps/cjxpiw5av1nb51clghg7kp1c2",
-  medium: "mapbox://styles/maplamps/cjxpiw2aj4ne31cnrgq6y5ujt",
-  high: "mapbox://styles/maplamps/cjxpflw074kec1cmb8q35ab9z"
-};
-
-const LIGHT_STYLES = {
-  none: "mapbox://styles/maplamps/cjxpcn17t4hol1cnuq3dqfaak",
-  low: "mapbox://styles/maplamps/cjxpckpdf3p4y1cmkn8ku44wk",
-  medium: "mapbox://styles/maplamps/cjxpckkau4hxf1cp6k3ld2w5v",
-  high: "mapbox://styles/maplamps/cjwe768gw1jkc1cq92843klrh"
-};
-
-const MAP_STYLES = {
-  light: LIGHT_STYLES,
-  dark: DARK_STYLES
-};
-
-const MAPBOX_TOKEN =
-  "pk.eyJ1IjoibWFwbGFtcHMiLCJhIjoiY2p3NmNoYmYzMGlmcTRhcWsycXNma3NqNSJ9.RBpqn0qnposf4cWpkUsq_g";
+import { MAPBOX_TOKEN, getMapboxStyle } from "config/mapbox.js";
 
 const MAP_SETTINGS = {
   dragPan: true,
@@ -92,8 +69,8 @@ const MapLampPreview = props => {
   const glowBorderRadius = `${radius + border}vh`;
   const glowDiameter = `${radius * 2}vh`;
 
-  const mapOffset = `${border - 2}vh`;
-  const mapDiameter = `${(radius * 2 + 4) * 2}vh`;
+  const mapOffset = `${border - 0.5}vh`;
+  const mapDiameter = `${(radius * 2 + 1) * 2}vh`;
   const mapBorderRadius = `${(radius + border) * 2}vh`;
 
   const cordTop = `${height - CORD_OFFSET}vh`;
@@ -132,7 +109,10 @@ const MapLampPreview = props => {
           width="100%"
           height="100%"
           mapboxApiAccessToken={MAPBOX_TOKEN}
-          mapStyle={MAP_STYLES[props.theme][props.density]}
+          mapStyle={`mapbox://styles/${getMapboxStyle(
+            props.density,
+            props.theme
+          )}`}
           onViewportChange={props.onViewportChange}
           attributionControl={false}
         >
@@ -212,6 +192,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black"
   },
   frame: {
+    zIndex: "20",
     position: "absolute",
     pointerEvents: "none",
     clipPath: "url(#donut-path)"
@@ -228,13 +209,15 @@ const styles = StyleSheet.create({
   },
   cord: {
     position: "absolute",
-    width: "1vh"
+    width: "1vh",
+    zIndex: "0"
   },
   mapContainer: {
+    zIndex: "10",
     position: "absolute",
     backgroundColor: "transparent",
     backgroundImage:
-      "radial-gradient(RGB(239, 224, 223), RGB(255, 239, 205), rgb(225, 185, 141))",
+      "radial-gradient(RGB(239, 224, 223), rgb(255, 239, 205), rgb(225, 185, 141))",
     webkitTransform: "translateZ(0)",
     transform: "scale(.5,.5)",
     transformOrigin: "top left"

@@ -56,11 +56,12 @@ const styles = StyleSheet.create({
   },
   preview: {
     width: "200px",
-    height: "200px",
-    marginLeft: "50px",
-    background: "yellow",
+    marginLeft: "30px",
+    background: "white",
     position: "sticky",
-    top: "20px"
+    top: "30px",
+    padding: "20px",
+    alignSelf: "start"
   },
   header: {
     display: "flex",

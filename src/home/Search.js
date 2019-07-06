@@ -10,8 +10,7 @@ import "./geocoder-overrides.css";
 
 import geoViewport from "@mapbox/geo-viewport";
 
-const MAPBOX_TOKEN =
-  "pk.eyJ1IjoibWFwbGFtcHMiLCJhIjoiY2p3NmNoYmYzMGlmcTRhcWsycXNma3NqNSJ9.RBpqn0qnposf4cWpkUsq_g";
+import { MAPBOX_TOKEN } from "config/mapbox.js";
 
 class Search extends React.Component {
   mapRef = React.createRef();
