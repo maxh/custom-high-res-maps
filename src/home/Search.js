@@ -10,17 +10,6 @@ import "./geocoder-overrides.css";
 
 import geoViewport from "@mapbox/geo-viewport";
 
-const MAP_SETTINGS = {
-  dragPan: true,
-  dragRotate: false,
-  scrollZoom: true,
-  touchZoom: true,
-  touchRotate: false,
-  keyboard: false,
-  doubleClickZoom: true,
-  pitchWithRotate: false
-};
-
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFwbGFtcHMiLCJhIjoiY2p3NmNoYmYzMGlmcTRhcWsycXNma3NqNSJ9.RBpqn0qnposf4cWpkUsq_g";
 
@@ -59,7 +48,6 @@ class Search extends React.Component {
             <ReactMapGL
               mapboxApiAccessToken={MAPBOX_TOKEN}
               ref={this.mapRef}
-              {...MAP_SETTINGS}
               onViewportChange={this.handleViewportChange}
               width="100%"
               height="100%"
