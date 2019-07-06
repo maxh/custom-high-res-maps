@@ -17,49 +17,68 @@ const ccStyle = {
   }
 };
 
+const URL = "lambdaUrlGoesHere";
+
+const sendPostJsonRequest = params => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", URL, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.responseType = "json";
+    xhr.onload = () => {
+      const jsonResponse = xhr.response;
+      if (jsonResponse.error) {
+        reject(jsonResponse.error);
+        return;
+      }
+      resolve(jsonResponse);
+    };
+    xhr.send(JSON.stringify(params));
+  });
+};
+
 class CheckoutForm extends React.Component {
   state = { isBillingAddressSame: true };
 
-  handleSubmit = ev => {
+  handleSubmit = async ev => {
     // We don't want to let default form submission happen here, which would refresh the page.
     ev.preventDefault();
 
-    // Within the context of `Elements`, this call to createPaymentMethod knows from which Element to
-    // create the PaymentMethod, since there's only one in this group.
-    // See our createPaymentMethod documentation for more:
-    // https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method
-    this.props.stripe
-      .createPaymentMethod("card", { billing_details: { name: "Jenny Rosen" } })
-      .then(({ paymentMethod }) => {
-        console.log("Received Stripe PaymentMethod:", paymentMethod);
-      });
+    //     /*
+    // adddress {
+    //           city,
+    //           country,
+    //           line1,
+    //           line2,
+    //           postal_code,
+    //           state
+    //         },
+    // */
+    //     // https://stripe.com/docs/stripe-js/reference#stripe-create-source
+    //     // https://stackoverflow.com/questions/50284633/stripe-payments-source-vs-token-card
+    //     const source = await this.props.stripe.createSource({
+    //       type: "card",
+    //       owner: {
+    //         address: billingAddress,
+    //         email: email,
+    //         name: nameOnCard,
+    //         phone: billingPhone
+    //       }
+    //     });
 
-    // You can also use handleCardPayment with the Payment Intents API automatic confirmation flow.
-    // See our handleCardPayment documentation for more:
-    // https://stripe.com/docs/stripe-js/reference#stripe-handle-card-payment
-    const data = {};
-    this.props.stripe.handleCardPayment(
-      "pk_test_DqNL2sGDI9mlzq99gvokk2po00TdSQD5Lw",
-      data
-    );
+    //     const config = CartManager.getCircularConfig();
 
-    // You can also use createToken to create tokens.
-    // See our tokens documentation for more:
-    // https://stripe.com/docs/stripe-js/reference#stripe-create-token
-    this.props.stripe.createToken({ type: "card", name: "Jenny Rosen" });
-    // token type can optionally be inferred if there is only one Element
-    // with which to create tokens
-    // this.props.stripe.createToken({name: 'Jenny Rosen'});
+    //     const params = {
+    //       amount: dollarAmount * 100,
+    //       currency: "usd",
+    //       metadata: { config },
+    //       shipping: {
+    //         name: shippingName,
+    //         address: shippingAddress
+    //       }
+    //     };
 
-    // You can also use createSource to create Sources.
-    // See our Sources documentation for more:
-    // https://stripe.com/docs/stripe-js/reference#stripe-create-source
-    this.props.stripe.createSource({
-      type: "card",
-      owner: {
-        name: "John Doe"
-      }
-    });
+    // sendPostJsonRequest
   };
 
   handleCheckboxChange = event => {
