@@ -8,8 +8,6 @@ import colors from "common/colors";
 import CheckoutForm from "checkout/CheckoutForm";
 import CircularMapPreview from "checkout/CircularMapPreview";
 
-import Preview from "checkout/Preview";
-
 import geoViewport from "@mapbox/geo-viewport";
 
 import CartManager from "common/CartManager";
