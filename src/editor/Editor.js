@@ -164,7 +164,7 @@ class Editor extends React.Component {
       true
     );
     const viewport = { height, width, longitude, latitude, zoom };
-    this.setState({ viewport });
+    this.updateViewportAndBounds(viewport);
   };
 
   handleViewportChange = viewport => {

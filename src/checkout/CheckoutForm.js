@@ -9,6 +9,8 @@ import { StyleSheet, css } from "aphrodite";
 
 import colors from "common/colors";
 
+import { withRouter } from "react-router-dom";
+
 const ccStyle = {
   base: {
     fontSize: "medium",
@@ -63,103 +65,111 @@ class CheckoutForm extends React.Component {
     this.setState({ isBillingAddressSame: event.target.checked });
   };
 
+  goBack = () => {
+    this.props.history.goBack();
+  };
+
   render() {
     return (
       <div className={css(styles.page)}>
-        <h1 className={css(styles.header)}>
-          <a href="/" className={css(styles.headerLink)}>
-            Map Lamps
-          </a>
-        </h1>
-        <form onSubmit={this.handleSubmit} className={css(styles.form)}>
-          <div>
-            <h1>Checkout</h1>
-            <FormItem name="Email address">
-              <input className={css(styles.formInput)} />
-            </FormItem>
-            <h2>Shipping address</h2>
-            <AddressForm />
-            <h2>Billing information</h2>
-            <label>
-              <input
-                name="isBillingAddressSame"
-                type="checkbox"
-                checked={this.state.isBillingAddressSame}
-                onChange={this.handleCheckboxChange}
-              />
-              Billing address is the same as shipping address
-            </label>
-            <div
-              style={{
-                display: this.state.isBillingAddressSame ? "none" : "block"
-              }}
-            >
-              <h3>Billing address</h3>
-              <AddressForm />
-            </div>
-            <h3>Card details</h3>
-            <FormItem name="Name on card">
-              <input className={css(styles.formInput)} />
-            </FormItem>
-            <FormItem name="Card number">
-              <div className={css(styles.ccWrapper)}>
-                <CardNumberElement
-                  style={ccStyle}
-                  className={css(styles.cardInput)}
-                />
-              </div>
-            </FormItem>
-            <div className={css(styles.cardMinorDetails)}>
-              <FormItem name="Card expiry">
-                <div className={css(styles.ccDetailWrapper)}>
-                  <CardExpiryElement
-                    style={ccStyle}
-                    className={css(styles.cardInput)}
-                  />
-                </div>
-              </FormItem>
-              <div style={{ width: "20px" }} />
-              <FormItem name="Card CVC">
-                <div className={css(styles.ccDetailWrapper)}>
-                  <CardCVCElement
-                    style={ccStyle}
-                    className={css(styles.cardInput)}
-                  />
-                </div>
-              </FormItem>
+        <div className={css(styles.innerPage)}>
+          <div className={css(styles.header)}>
+            <h1 className={css(styles.headerTitle)}>
+              <a href="/" className={css(styles.headerLink)}>
+                Map Lamps
+              </a>
+            </h1>
+            <div onClick={this.goBack} className={css(styles.headerLink)}>
+              ← Return to editor
             </div>
           </div>
-          <button className={css(styles.button)}>Confirm order</button>
-        </form>
-        <div className={css(styles.preview)}>Preview</div>
+          <div className={css(styles.lowerInnerPage)}>
+            <form onSubmit={this.handleSubmit} className={css(styles.form)}>
+              <div>
+                <h2>Checkout</h2>
+                <FormItem name="Email address">
+                  <input className={css(styles.formInput)} />
+                </FormItem>
+                <h3>Shipping information</h3>
+                <AddressForm />
+                <h3>Billing information</h3>
+                <label>
+                  <input
+                    name="isBillingAddressSame"
+                    type="checkbox"
+                    checked={this.state.isBillingAddressSame}
+                    onChange={this.handleCheckboxChange}
+                  />
+                  Billing address is the same as shipping address
+                </label>
+                <div
+                  style={{
+                    display: this.state.isBillingAddressSame ? "none" : "block"
+                  }}
+                >
+                  <h4>Billing address</h4>
+                  <AddressForm />
+                </div>
+                <h4>Card details</h4>
+                <FormItem name="Name on card">
+                  <input className={css(styles.formInput)} />
+                </FormItem>
+                <FormItem name="Card number">
+                  <div className={css(styles.ccWrapper)}>
+                    <CardNumberElement
+                      style={ccStyle}
+                      className={css(styles.cardInput)}
+                    />
+                  </div>
+                </FormItem>
+                <div className={css(styles.cardMinorDetails)}>
+                  <FormItem name="Card expiry">
+                    <div className={css(styles.ccDetailWrapper)}>
+                      <CardExpiryElement
+                        style={ccStyle}
+                        className={css(styles.cardInput)}
+                      />
+                    </div>
+                  </FormItem>
+                  <div style={{ width: "20px" }} />
+                  <FormItem name="Card CVC">
+                    <div className={css(styles.ccDetailWrapper)}>
+                      <CardCVCElement
+                        style={ccStyle}
+                        className={css(styles.cardInput)}
+                      />
+                    </div>
+                  </FormItem>
+                </div>
+              </div>
+              <button className={css(styles.button)}>Confirm order</button>
+            </form>
+            <div className={css(styles.preview)}>Preview</div>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-export default injectStripe(CheckoutForm);
+export default withRouter(injectStripe(CheckoutForm));
 
 const styles = StyleSheet.create({
   preview: {
-    width: "100px",
-    height: "100px",
+    width: "200px",
+    height: "200px",
     marginLeft: "50px",
     background: "yellow",
     position: "sticky",
     top: "20px"
   },
   header: {
-    position: "absolute",
-    top: "20px",
-    left: "20px",
-    margin: 0,
-    cursor: "pointer",
-    "@media (max-width: 800px)": {
-      fontSize: "18px"
-    },
-    "@media (max-width: 400px)": {
-      fontSize: "12px"
-    }
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  headerTitle: {
+    cursor: "pointer"
   },
   headerLink: {
     color: "black",
@@ -173,6 +183,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center"
+  },
+  innerPage: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  lowerInnerPage: {
+    display: "flex",
+    flexDirection: "row"
   },
   cardMinorDetails: {
     display: "flex",
